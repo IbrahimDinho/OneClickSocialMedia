@@ -15,6 +15,7 @@
 
     <div class="container-fluid">
         <form asp-controller="Home" asp-action="PostToSocialMedia" method="post">
+            @Html.AntiForgeryToken()
         <div class="row">
             <div class="col-4">
                 <div class="card mb-5 p-1">

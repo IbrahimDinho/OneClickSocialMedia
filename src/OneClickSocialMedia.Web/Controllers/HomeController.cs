@@ -22,6 +22,7 @@ namespace OneClickSocialMedia.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult PostToSocialMedia()
         {
             return View();
