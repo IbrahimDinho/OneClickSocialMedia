@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using OneClickSocialMedia.Models;
+using OneClickSocialMedia.Web.ViewModel;
 
 namespace OneClickSocialMedia.Controllers
 {
@@ -17,6 +17,12 @@ namespace OneClickSocialMedia.Controllers
         }
 
         public IActionResult Setting()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult PostToSocialMedia()
         {
             return View();
         }

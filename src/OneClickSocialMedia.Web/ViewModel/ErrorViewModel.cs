@@ -1,4 +1,4 @@
-namespace OneClickSocialMedia.Models
+namespace OneClickSocialMedia.Web.ViewModel
 {
     public class ErrorViewModel
     {
