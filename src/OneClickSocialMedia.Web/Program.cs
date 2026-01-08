@@ -1,3 +1,5 @@
+using OneClickSocialMedia.Business;
+
 namespace OneClickSocialMedia
 {
     public class Program
@@ -8,6 +10,8 @@ namespace OneClickSocialMedia
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddMediatRContracts();
+
 
             var app = builder.Build();
 

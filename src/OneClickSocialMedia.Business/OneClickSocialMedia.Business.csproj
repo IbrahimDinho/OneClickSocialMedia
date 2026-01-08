@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Service\" />
-    <Folder Include="QueryHandler\" />
-    <Folder Include="Query\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
   </ItemGroup>
 
 </Project>

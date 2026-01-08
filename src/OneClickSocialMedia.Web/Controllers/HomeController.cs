@@ -1,11 +1,20 @@
-using System.Diagnostics;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OneClickSocialMedia.Business.Query;
+using OneClickSocialMedia.Business.Query.Response;
 using OneClickSocialMedia.Web.ViewModel;
+using System.Diagnostics;
 
 namespace OneClickSocialMedia.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMediator mediator;
+        public HomeController(IMediator mediator) 
+        {
+            this.mediator = mediator;
+        }
+
         public IActionResult Index()
         {
             return View(); 
@@ -25,6 +34,8 @@ namespace OneClickSocialMedia.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PostToSocialMedia(SocialMediaViewModel viewModel)
         {
+            PostToSocialMediaQuery request = new PostToSocialMediaQuery();
+            PostToSocialMediaResponse response = mediator.Send(request).GetAwaiter().GetResult();
             return View();
         }
 
