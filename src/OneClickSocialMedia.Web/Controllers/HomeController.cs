@@ -8,7 +8,7 @@ namespace OneClickSocialMedia.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(); 
         }
 
         public IActionResult Privacy()
@@ -23,7 +23,7 @@ namespace OneClickSocialMedia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PostToSocialMedia()
+        public IActionResult PostToSocialMedia(SocialMediaViewModel viewModel)
         {
             return View();
         }

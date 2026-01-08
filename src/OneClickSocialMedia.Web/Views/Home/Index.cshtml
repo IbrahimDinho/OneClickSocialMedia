@@ -13,58 +13,57 @@
 
 <div class="container-fluid mb-5">
 
-    <div class="container-fluid">
-        <form asp-controller="Home" asp-action="PostToSocialMedia" method="post">
+    <form asp-controller="Home" asp-action="PostToSocialMedia" method="POST" enctype='multipart/form-data'>
             @Html.AntiForgeryToken()
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <div class="card mb-5 p-1">
                     <div class="card-header">
-                        <img src="~/images/x-social-media.png" class="card-img-top" alt="x icon" style="width: 40px; height: 40px; object-fit: contain;" />
+                        <img src="~/images/x-social-media.png" class="card-img-top icon-card" alt="x icon" />
                     </div>
                     <div class="card-body ">
                         <div class="input-group">
                             <div class="">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <label class="form-check-label" for="TwitterCheck">
                                     Twitter
                                 </label>
-                                <input class="form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input ms-2" type="checkbox" id="TwitterCheck" asp-for="IsTwitter">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card mb-5 p-1">
                     <div class="card-header">
-                        <img src="~/images/facebook-square-icon.png" class="card-img-top" alt="x icon" style="width: 40px; height: 40px; object-fit: contain;" />
+                        <img src="~/images/facebook-square-icon.png" class="card-img-top icon-card" alt="facebook icon" />
                     </div>
                     <div class="card-body">
                         <div class="input-group">
                             <div class="">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <label class="form-check-label" for="FaceBookCheck">
                                     Facebook
                                 </label>
-                                <input class="form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input ms-2" type="checkbox" id="FaceBookCheck" asp-for="IsFaceBook">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card mb-5 p-1">
                     <div class="card-header">
-                        <img src="~/images/ig-instagram-icon.png" class="card-img-top" alt="x icon" style="width: 40px; height: 40px; object-fit: contain;" />
+                        <img src="~/images/ig-instagram-icon.png" class="card-img-top icon-card" alt="instagram icon" />
                     </div>
                     <div class="card-body ">
                         <div class="input-group">
                             <div class="">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <label class="form-check-label" for="InstagramCheck">
                                     Instagram
                                 </label>
-                                <input class="form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input ms-2" type="checkbox" id="InstagramCheck" asp-for="IsInstagram">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                <div class="col-auto d-flex">
+                <div class="col-auto d-none d-md-flex">
                     <div class="vr"></div>
                 </div>
             <div class="col">
@@ -75,16 +74,17 @@
                         <span id="imagePlaceholder" class="text-muted">Image preview</span>
                     </div>
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
+                        <input type="file" class="form-control" id="inputGroupFile02" asp-for="Image">
                     <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
                     <input type="url"
                            class="form-control mb-5"
                            id="imageUrlInput"
-                           placeholder="OR input image URL (https://...)">
+                           placeholder="OR input image URL (https://...)"
+                           asp-for="URLforImage">
                 </div>
                 <div class="mb-3">
-                    <textarea placeholder="Write a comment" class="form-control" id="exampleFormControlTextarea1" rows="9"></textarea>
+                    <textarea placeholder="Write a comment" class="form-control" id="exampleFormControlTextarea1" rows="9" asp-for="Comment"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Post</button>
@@ -94,8 +94,6 @@
         
     </form>
 
-
-    </div>
 </div>
 
 

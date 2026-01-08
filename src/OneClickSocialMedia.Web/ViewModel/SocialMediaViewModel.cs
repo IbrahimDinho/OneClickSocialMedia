@@ -1,4 +1,6 @@
-﻿namespace OneClickSocialMedia.Web.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OneClickSocialMedia.Web.ViewModel
 {
     public class SocialMediaViewModel
     {
@@ -19,14 +21,20 @@
         public bool IsInstagram { get; set; }
 
         /// <summary>
+        /// The image file given by the user
+        /// </summary>
+        public IFormFile Image { get; set; }
+
+        /// <summary>
         /// Url of image that the user wants to post
         /// </summary>
+        [Url]
         public string URLforImage { get; set; }
 
         /// <summary>
         /// comment posted by the user.
         /// </summary>
-        public string Comment { get; set; }
+        public string Comment { get; set; } 
 
     }
 }
