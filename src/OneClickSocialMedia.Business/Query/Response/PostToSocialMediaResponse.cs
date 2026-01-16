@@ -6,6 +6,8 @@ namespace OneClickSocialMedia.Business.Query.Response
 {
     public class PostToSocialMediaResponse
     {
-        public bool Success { get; set; }
+        public bool IsSuccess { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

@@ -36,7 +36,19 @@ namespace OneClickSocialMedia.Controllers
         {
             PostToSocialMediaQuery request = new PostToSocialMediaQuery();
             PostToSocialMediaResponse response = mediator.Send(request).GetAwaiter().GetResult();
-            return View();
+
+            if (response.IsSuccess)
+            {
+                TempData["Success"] = true;
+                TempData["Message"] = "Posted successfully!";
+            }
+            else
+            {
+                TempData["Message"] = response.ErrorMessage;
+            }
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

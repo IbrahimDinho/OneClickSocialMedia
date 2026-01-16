@@ -89,6 +89,15 @@
 
                 <button type="submit" class="btn btn-primary">Post</button>
 
+                <br />
+
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert @(TempData["Success"] as bool? == true ? "alert-success" : "alert-danger")">
+                        @TempData["Message"]
+                    </div>
+                }
+
             </div>
         </div>
         
