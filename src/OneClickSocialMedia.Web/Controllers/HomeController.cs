@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
@@ -29,7 +30,6 @@ namespace OneClickSocialMedia.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult PostToSocialMedia(SocialMediaViewModel viewModel)
