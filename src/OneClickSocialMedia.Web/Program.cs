@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OneClickSocialMedia.Business;
@@ -14,7 +16,14 @@ namespace OneClickSocialMedia
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
             builder.Services.AddMediatRContracts();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -53,7 +62,8 @@ namespace OneClickSocialMedia
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
-          
+           
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
