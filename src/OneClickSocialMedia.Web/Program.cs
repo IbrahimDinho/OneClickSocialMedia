@@ -66,6 +66,8 @@ namespace OneClickSocialMedia
 
             var app = builder.Build();
 
+            ApplyMigrations(app);
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -86,6 +88,21 @@ namespace OneClickSocialMedia
                 .WithStaticAssets();
 
             app.Run();
+        }
+
+        static void ApplyMigrations(WebApplication app)
+        {
+            using (IServiceScope scope = app.Services.CreateScope())
+            {
+                AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                // Check and apply pending migrations
+                IEnumerable<string> pendingMigrations = appDbContext.Database.GetPendingMigrations();
+                if (pendingMigrations.Any())
+                {
+                    appDbContext.Database.Migrate();
+                }
+            }
         }
     }
 }
