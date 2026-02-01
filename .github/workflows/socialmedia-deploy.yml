@@ -23,19 +23,6 @@ jobs:
         with:
           dotnet-version: '10.x'
 
-      - name: Set connection string in App Service
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: oneclicksocialmedia
-          connection-strings-json: |
-            [
-              {
-                "name": "ConnectionStrings:DefaultConnection",
-                "value": "${{ secrets.CONNECTION_STRING_ONECLICKSOCIALMEDIA }}",
-                "type": "SQLAzure"
-              }
-            ]
-
       - name: Build with dotnet
         run: dotnet build OneClickSocialMedia.Web/OneClickSocialMedia.Web.csproj -c Release
 
@@ -65,4 +52,4 @@ jobs:
           app-name: 'oneclicksocialmedia'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F3134E11AD564F26A316AF930118CF42 }}
