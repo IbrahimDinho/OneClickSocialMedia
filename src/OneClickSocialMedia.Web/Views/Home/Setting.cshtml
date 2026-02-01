@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SocialMediaSettingsViewModel;
+@{
     ViewData["Title"] = "Settings";
 }
 <div class="container">
@@ -8,15 +9,53 @@
 
 <div class="card">
     <div class="card-header">
-        <h5>Twitter</h5>
+        <h5>Twitter / X</h5>
     </div>
     <div class="card-body">
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Twitter API Token</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Twitter" aria-describedby="basic-addon1">
-        </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="TwitterApiKey" id="twitterApiKeyLabel">
+                            API Key
+                        </label>
+                    </div>
+                    <input asp-for="TwitterApiKey" class="form-control" aria-describedby="twitterApiKeyLabel" />
+                 </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="TwitterApiSecret" id="twitterApiSecretLabel">
+                            API Secret
+                        </label>
+                    </div>
+                    <input asp-for="TwitterApiSecret" class="form-control" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" />
+                    <div class="input-group-append">
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                onclick="togglePassword('TwitterApiSecret', this)">
+                            <span class="toggle-text">Show</span>
+                            <i class="fa fa-eye ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="TwitterAccessToken" id="twitterAccessTokenLabel">
+                            Access Token
+                        </label>
+                    </div>
+                    <input asp-for="TwitterAccessToken" class="form-control" aria-describedby="twitterAccessTokenLabel" />
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="TwitterApiSecret" id="twitterApiSecretLabel">
+                            Token Secret
+                        </label>
+                    </div>
+                    <input asp-for="TwitterAccessTokenSecret" class="form-control" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" />
+                </div>
+
     </div>
 </div>
 
@@ -66,4 +105,25 @@
 
 </div>
 
+@* 
+TODO make the js into its own filee!!!! AND ADD THE ICON EYE!!*@
+<script>
+    function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector("i");
+        const text = btn.querySelector(".toggle-text");
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+            text.innerText = "Hide";
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+            text.innerText = "Show";
+        }
+    }
+</script>
 
