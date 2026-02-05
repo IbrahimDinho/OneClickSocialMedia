@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = "Settings";
 }
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+}
+
+@section Scripts {
+    <script src="~/js/setting-page.js" asp-append-version="true"></script>
+}
+
+
 <div class="container">
 <h1 class="mb-5 text-center">@ViewData["Title"]</h1>
 
@@ -49,11 +59,19 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="TwitterApiSecret" id="twitterApiSecretLabel">
+                        <label class="input-group-text" for="TwitterAccessTokenSecret" id="twitterAccessTokenSecretLabel">
                             Token Secret
                         </label>
                     </div>
-                    <input asp-for="TwitterAccessTokenSecret" class="form-control" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" />
+                    <input asp-for="TwitterAccessTokenSecret" class="form-control" aria-describedby="twitterAccessTokenSecretLabel" autocomplete="new-password" />
+                    <div class="input-group-append">
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                onclick="togglePassword('TwitterAccessTokenSecret', this)">
+                            <span class="toggle-text">Show</span>
+                            <i class="fa fa-eye ml-1"></i>
+                        </button>
+                    </div>
                 </div>
 
     </div>
@@ -104,26 +122,4 @@
 </div>
 
 </div>
-
-@* 
-TODO make the js into its own filee!!!! AND ADD THE ICON EYE!!*@
-<script>
-    function togglePassword(inputId, btn) {
-        const input = document.getElementById(inputId);
-        const icon = btn.querySelector("i");
-        const text = btn.querySelector(".toggle-text");
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-            text.innerText = "Hide";
-        } else {
-            input.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-            text.innerText = "Show";
-        }
-    }
-</script>
 
