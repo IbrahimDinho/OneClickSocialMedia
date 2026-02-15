@@ -1,5 +1,8 @@
 # OneClickSocialMedia
 
+[![Deploy](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml/badge.svg)](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml)
+![.NET](https://img.shields.io/badge/.NET-10.0-purple)
+
 OneClickSocialMedia is a web application that lets you post to multiple social media platforms from one place.
 
 Currently supported / planned platforms:
@@ -9,9 +12,36 @@ Currently supported / planned platforms:
 
 
 ## Live Site
-Site - oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net
+Site - [oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net](https://oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net)
 
+## Tech Stack
 
-## Setup & Documentation
-Setup instructions (including how to create apps on X/Facebook/Instagram and how to generate the required API tokens) will be added soon.
+- **Backend:** ASP.NET Core MVC (.NET)
+- **Data:** Entity Framework Core + Azure SQL Database
+- **Hosting:** Azure App Service (Web App)
+- **CI/CD:** GitHub Actions (deploy pipeline)
+
+---
+
+## Features
+
+- Post content to multiple platforms from a single UI
+- Platform settings page for storing API credentials (per user)
+
+---
+
+## Setup & Documentation (Coming Soon)
+
+A step-by-step guide will be added covering:
+- Creating developer apps on X/Facebook/Instagram and linking them to the accounts from where the posts will occur on
+- Generating API keys/tokens
+
+## Security Notes
+
+- Authentication is required to access the application. Users must be logged in to manage social media settings. Currently only login/register is publicly accessible.
+- User authentication is handled using **ASP.NET Core Identity**. A zero-trust policy is applied across every page unless explicitly marked as publicly accessible (login/register). 
+- User passwords are **securely hashed**.
+- API tokens and secrets are **encrypted before being stored** in the database.
+- Secrets are **never returned in plain text** to the UI after saving. Instead, a masked placeholder (e.g. `********`) is shown.
+- Database access is restricted to the application via Azure SQL configuration.
 
