@@ -3,7 +3,8 @@
 [![Deploy](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml/badge.svg)](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml)
 ![.NET](https://img.shields.io/badge/.NET-10.0-purple)
 
-OneClickSocialMedia is a web application that lets you post to multiple social media platforms from one place.
+OneClickSocialMedia is a responsive web application that lets you post to multiple social media platforms from one place, designed to work seamlessly on both desktop and mobile devices.
+
 
 Currently supported / planned platforms:
 - X (Twitter)
