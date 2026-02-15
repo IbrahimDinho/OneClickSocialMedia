@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OneClickSocialMedia.Business;
+using OneClickSocialMedia.Business.Service;
 using OneClickSocialMedia.Data;
 using System;
 
@@ -62,7 +63,9 @@ namespace OneClickSocialMedia
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
-           
+            builder.Services.AddDataProtection();
+
+            builder.Services.AddSingleton<EncryptionService>();
 
             var app = builder.Build();
 

@@ -4,10 +4,8 @@ using System.Text;
 
 namespace OneClickSocialMedia.Business.Query.Response
 {
-    public class PostToSocialMediaResponse
+    public class PostToSocialMediaResponse : Response
     {
-        public bool IsSuccess { get; set; }
-
-        public string ErrorMessage { get; set; }
+   
     }
 }

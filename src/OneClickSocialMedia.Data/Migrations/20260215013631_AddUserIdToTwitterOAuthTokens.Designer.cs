@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneClickSocialMedia.Data;
 
@@ -11,9 +12,11 @@ using OneClickSocialMedia.Data;
 namespace OneClickSocialMedia.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260215013631_AddUserIdToTwitterOAuthTokens")]
+    partial class AddUserIdToTwitterOAuthTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,7 +196,7 @@ namespace OneClickSocialMedia.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TwitterOAuthTokens", (string)null);
+                    b.ToTable("TwitterOAuthTokens");
                 });
 
             modelBuilder.Entity("OneClickSocialMedia.Data.Users", b =>

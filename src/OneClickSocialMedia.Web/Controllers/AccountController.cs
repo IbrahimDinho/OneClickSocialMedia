@@ -90,7 +90,7 @@ namespace OneClickSocialMedia.Web.Controllers
                 }
                 else
                 {
-                    foreach (string error in response.ErrorMessage)
+                    foreach (string error in response.ErrorMessages)
                     {
                         ModelState.AddModelError("", error);
                     }

@@ -9,6 +9,6 @@ namespace OneClickSocialMedia.Data
         {
         }
 
-        
+        public DbSet<TwitterOAuthTokens> TwitterOAuthTokens { get; set; }
     }
 }

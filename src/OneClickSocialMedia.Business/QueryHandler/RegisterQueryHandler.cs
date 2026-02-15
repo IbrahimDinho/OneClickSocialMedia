@@ -40,7 +40,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
             {
                 RegisterResponse response = new RegisterResponse();
                 response.IsSuccess = false;
-                response.ErrorMessage = result.Errors.Select(x => x.Description).ToList();
+                response.ErrorMessages = result.Errors.Select(x => x.Description).ToList();
                 return response;
             }
         }

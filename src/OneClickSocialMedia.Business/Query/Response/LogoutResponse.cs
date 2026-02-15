@@ -4,11 +4,9 @@ using System.Text;
 
 namespace OneClickSocialMedia.Business.Query.Response
 {
-    public class LogoutResponse
+    public class LogoutResponse : Response
     {
-        public bool IsSuccess { get; set; }
-
-        public string ErrorMessage { get; set; }
+      
 
     }
 }

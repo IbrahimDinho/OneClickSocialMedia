@@ -15,6 +15,8 @@
 <div class="container">
 <h1 class="mb-5 text-center">@ViewData["Title"]</h1>
 
+<form asp-controller="Home" asp-action="PostSettings" method="POST">
+
 <div class="container-fluid mb-5">
 
 <div class="card">
@@ -31,14 +33,14 @@
                     <input asp-for="TwitterApiKey" class="form-control" aria-describedby="twitterApiKeyLabel" />
                  </div>
 
-                <div class="input-group mb-3">
+                    <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="TwitterApiSecret" id="twitterApiSecretLabel">
                             API Secret
                         </label>
                     </div>
-                    <input asp-for="TwitterApiSecret" class="form-control" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" />
-                    <div class="input-group-append">
+                        <input asp-for="TwitterApiSecret" class="form-control" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" placeholder="@(Model.HasTwitterApiSecret ? "********" : "")" />
+                        <div class="input-group-append" id="TwitterAPISecretToggle">
                         <button type="button"
                                 class="btn btn-outline-secondary"
                                 onclick="togglePassword('TwitterApiSecret', this)">
@@ -57,14 +59,14 @@
                     <input asp-for="TwitterAccessToken" class="form-control" aria-describedby="twitterAccessTokenLabel" />
                 </div>
 
-                <div class="input-group mb-3">
+                    <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="TwitterAccessTokenSecret" id="twitterAccessTokenSecretLabel">
                             Token Secret
                         </label>
                     </div>
-                    <input asp-for="TwitterAccessTokenSecret" class="form-control" aria-describedby="twitterAccessTokenSecretLabel" autocomplete="new-password" />
-                    <div class="input-group-append">
+                        <input asp-for="TwitterAccessTokenSecret" class="form-control" aria-describedby="twitterAccessTokenSecretLabel" autocomplete="new-password" placeholder="@(Model.HasTwitterAccessTokenSecret ? "********" : "")" />
+                        <div class="input-group-append" id="TwitterAccessTokenSecretToggle">
                         <button type="button"
                                 class="btn btn-outline-secondary"
                                 onclick="togglePassword('TwitterAccessTokenSecret', this)">
@@ -73,6 +75,19 @@
                         </button>
                     </div>
                 </div>
+                    @if (Model.HasTwitterApiSecret)
+                    {
+                        <small class="form-text text-muted">
+                            A twitter API secret is already saved, for security ******* is shown as a placeholder. Enter a new one to replace it.
+                        </small>
+                        <br />
+                    }
+                    @if (Model.HasTwitterAccessTokenSecret)
+                    {
+                        <small class="form-text text-muted">
+                            A twitter access token secret is already saved, for security ******* is shown as a placeholder. Enter a new one to replace it.
+                        </small>
+                    }
 
     </div>
 </div>
@@ -121,5 +136,17 @@
 
 </div>
 
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert @(TempData["Success"] as bool? == true ? "alert-success" : "alert-danger")">
+            @TempData["Message"]
+        </div>
+    }
+
+    </form>
 </div>
 

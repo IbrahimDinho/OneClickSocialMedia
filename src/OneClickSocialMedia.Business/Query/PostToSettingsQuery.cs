@@ -1,39 +1,37 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using OneClickSocialMedia.Business.Query.Response;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace OneClickSocialMedia.Web.ViewModel
+namespace OneClickSocialMedia.Business.Query
 {
-    public class SocialMediaSettingsViewModel
+    public class PostToSettingsQuery : IRequest<PostToSettingsResponse>
     {
+        /// <summary>
+        /// User Id
+        /// </summary>
+        public string UserId { get; set; }
 
         /// <summary>
         /// Twitter Api Key
         /// </summary>
-        [Display(Name = "API Key")]
         public string TwitterApiKey { get; set; }
 
         /// <summary>
         /// Twitter Api Secret
         /// </summary>
-        [Display(Name = "API Secret")]
-        [DataType(DataType.Password)]
         public string TwitterApiSecret { get; set; }
 
         /// <summary>
         /// Twitter Access Token
         /// </summary>
-        [Display(Name = "Access Token")]
         public string TwitterAccessToken { get; set; }
 
         /// <summary>
         /// Twitter Token Secret
         /// </summary>
-        [Display(Name = "Access Token Secret")]
-        [DataType(DataType.Password)]
         public string TwitterAccessTokenSecret { get; set; }
-
-        public bool HasTwitterApiSecret { get; set; }
-        public bool HasTwitterAccessTokenSecret { get; set; }
-
-
     }
 }

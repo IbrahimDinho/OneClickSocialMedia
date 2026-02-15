@@ -3,6 +3,10 @@
     const icon = btn.querySelector("i");
     const text = btn.querySelector(".toggle-text");
 
+    if (!input.value || input.value.trim() === "") {
+        return;
+    }
+
     if (input.type === "password") {
         input.type = "text";
         icon.classList.remove("fa-eye");
@@ -15,3 +19,32 @@
         text.innerText = "Show";
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const inputAPI = document.getElementById("TwitterApiSecret");
+    const toggleAPI = document.getElementById("TwitterAPISecretToggle");
+
+    const inputToken = document.getElementById("TwitterAccessTokenSecret");
+    const toggleToken = document.getElementById("TwitterAccessTokenSecretToggle");
+
+    // Hide toggle initially
+    toggleToken.style.display = "none";
+    toggleAPI.style.display = "none";
+
+    inputToken.addEventListener("input", function () {
+        if (inputToken.value.trim().length > 0) {
+            toggleToken.style.display = "flex";   // show button
+        } else {
+            toggleToken.style.display = "none";   // hide button
+        }
+    });
+
+    inputAPI.addEventListener("input", function () {
+        if (inputAPI.value.trim().length > 0) {
+            toggleAPI.style.display = "flex";   // show button
+        } else {
+            toggleAPI.style.display = "none";   // hide button
+        }
+    });
+});
