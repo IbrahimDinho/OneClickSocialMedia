@@ -49,8 +49,8 @@ namespace OneClickSocialMedia.Business.QueryHandler
             return new GetSettingsResponse
             {
                 IsSuccess = true,
-                TwitterApiKey = twitterToken.TwitterApiKey,
-                TwitterAccessToken = twitterToken.TwitterAccessToken,
+                TwitterApiKey = MaskValue(twitterToken.TwitterApiKey),
+                TwitterAccessToken = MaskValue(twitterToken.TwitterAccessToken),
 
                 HasTwitterApiSecret = !string.IsNullOrWhiteSpace(decryptedApiSecret),
                 HasTwitterAccessTokenSecret = !string.IsNullOrWhiteSpace(decryptedAccessTokenSecret),
@@ -58,5 +58,19 @@ namespace OneClickSocialMedia.Business.QueryHandler
             };
 
         }
+
+        private static string MaskValue(string value, int visibleChars = 6)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return string.Empty;
+
+            if (value.Length <= visibleChars)
+                return value;
+
+            var lastChars = value.Substring(value.Length - visibleChars);
+            return new string('*', value.Length - visibleChars) + lastChars;
+        }
     }
+
+
 }
