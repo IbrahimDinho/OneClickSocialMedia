@@ -6,6 +6,7 @@
     <Project Path="OneClickSocialMedia.Test.Business.Unit/OneClickSocialMedia.Test.Business.Unit.csproj" />
   </Folder>
   <Project Path="OneClickSocialMedia.Business/OneClickSocialMedia.Business.csproj" />
+  <Project Path="OneClickSocialMedia.Contract/OneClickSocialMedia.Contract.csproj" Id="497ab65c-52db-4883-9e19-46af66a5ec4c" />
   <Project Path="OneClickSocialMedia.Data/OneClickSocialMedia.Data.csproj" />
   <Project Path="OneClickSocialMedia.Web/OneClickSocialMedia.Web.csproj" />
 </Solution>

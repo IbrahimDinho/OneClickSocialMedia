@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OneClickSocialMedia.Business;
 using OneClickSocialMedia.Business.Service;
+using OneClickSocialMedia.Contract.Services;
 using OneClickSocialMedia.Data;
 using System;
 
@@ -66,6 +67,7 @@ namespace OneClickSocialMedia
             builder.Services.AddDataProtection();
 
             builder.Services.AddSingleton<EncryptionService>();
+            builder.Services.AddScoped<ITwitterPostService, TwitterPostService>();
 
             var app = builder.Build();
 

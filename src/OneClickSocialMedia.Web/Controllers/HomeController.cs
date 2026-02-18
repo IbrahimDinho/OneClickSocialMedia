@@ -87,7 +87,19 @@ namespace OneClickSocialMedia.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PostToSocialMedia(SocialMediaViewModel viewModel)
         {
-            PostToSocialMediaQuery request = new PostToSocialMediaQuery();
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            PostToSocialMediaQuery request = new PostToSocialMediaQuery()
+            {
+                IsFaceBook = viewModel.IsFaceBook,
+                IsInstagram = viewModel.IsInstagram,
+                IsTwitter = viewModel.IsTwitter,
+                Comment = viewModel.Comment,
+                Image = viewModel.Image?.OpenReadStream(),
+                URLforImage = viewModel.URLforImage,
+                UserId = currentUserId,
+            };
+            
             PostToSocialMediaResponse response = mediator.Send(request).GetAwaiter().GetResult();
 
             if (response.IsSuccess)
