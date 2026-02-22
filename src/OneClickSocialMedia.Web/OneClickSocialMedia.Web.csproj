@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmailService\EmailService.csproj" />
     <ProjectReference Include="..\OneClickSocialMedia.Business\OneClickSocialMedia.Business.csproj" />
     <ProjectReference Include="..\OneClickSocialMedia.Contract\OneClickSocialMedia.Contract.csproj" />
     <ProjectReference Include="..\OneClickSocialMedia.Data\OneClickSocialMedia.Data.csproj" />
