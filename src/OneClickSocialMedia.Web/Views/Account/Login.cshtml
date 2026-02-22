@@ -18,6 +18,11 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <div class="float-end">
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                    Forgot password?
+                </a>
+            </div>
             <div class="form-check mb-3">
                 <label class="form-check-label">
                     <input asp-for="RememberMe" class="form-check-input" />
@@ -32,7 +37,6 @@
     </div>
 </div>
 
-@* comment this out to test if client validation stops working and if server *@ 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");

@@ -1,3 +1,4 @@
+using EmailService;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace OneClickSocialMedia.Controllers
     public class HomeController : Controller
     {
         private readonly IMediator mediator;
+        
         public HomeController(IMediator mediator) 
         {
             this.mediator = mediator;
@@ -85,8 +87,9 @@ namespace OneClickSocialMedia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PostToSocialMedia(SocialMediaViewModel viewModel)
+        public async Task<IActionResult> PostToSocialMedia(SocialMediaViewModel viewModel)
         {
+
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             PostToSocialMediaQuery request = new PostToSocialMediaQuery()

@@ -37,8 +37,46 @@ namespace OneClickSocialMedia.Business.Service
             throw new NotImplementedException();
         }
 
+        //private async Task<string> PostToXAsync(string tweet, string apiKey, string apiSecret, string token, string tokenSecret, string endpoint, string? mediaId)
+        //{
+        //    var oauth = new OAuthMessageHandler(apiKey, apiSecret, token, tokenSecret);
 
-       
+
+        //    // Build payload
+        //    object tweetData = string.IsNullOrWhiteSpace(mediaId)
+        //        ? new { text = tweet }
+        //        : new
+        //        {
+        //            text = tweet,
+        //            media = new
+        //            {
+        //                media_ids = new[] { mediaId }
+        //            }
+        //        };
+
+        //    string jsonData = JsonSerializer.Serialize(tweetData);
+
+        //    using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, endpoint)
+        //    {
+        //        Content = new StringContent(jsonData, Encoding.UTF8, "application/json")
+        //    };
+
+        //     //Prefer HttpClientFactory for handler-less clients.
+        //     //Since OAuth is a handler instance, we attach it here.
+        //    using var httpClient = new HttpClient(oauth, disposeHandler: true);
+
+        //    var response = await httpClient.SendAsync(request);
+
+        //    if (response.IsSuccessStatusCode)
+        //        return "Tweet sent successfully";
+
+        //    // NO exception for now later can do my own way implementing exceptions!!
+        //    var body = await response.Content.ReadAsStringAsync();
+        //    throw new HttpRequestException(
+        //        $"Failed to send tweet. Status={(int)response.StatusCode} {response.ReasonPhrase}. Body: {body}");
+        //}
+
+
 
     }
 }
