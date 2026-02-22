@@ -1,3 +1,4 @@
+using EmailService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -28,6 +29,12 @@ namespace OneClickSocialMedia
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             builder.Services.AddMediatRContracts();
+
+            EmailConfiguration emailConfig = builder.Configuration
+            .GetSection("EmailConfiguration")
+            .Get<EmailConfiguration>();
+
+            builder.Services.AddSingleton(emailConfig);
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
