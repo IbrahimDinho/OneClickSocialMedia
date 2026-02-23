@@ -3,7 +3,7 @@
 [![Deploy](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml/badge.svg)](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml)
 ![.NET](https://img.shields.io/badge/.NET-10.0-purple)
 
-OneClickSocialMedia is a responsive web application that lets you post to multiple social media platforms from one place, designed to work seamlessly on both desktop and mobile devices.
+OneClickSocialMedia is a responsive web application that lets you post to multiple social media platforms from one place, designed to work on both desktop and mobile devices.
 
 
 Currently supported / planned platforms:
@@ -27,7 +27,7 @@ Site - [oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net](ht
 ## Features
 
 - Post content to multiple platforms from a single UI
-- Platform settings page for storing API credentials (per user)
+- Platform settings page for storing API credentials safely (per user)
 
 ---
 
@@ -39,9 +39,11 @@ A step-by-step guide will be added covering:
 
 ## Security Notes
 
-- Authentication is required to access the application. Users must be logged in to manage social media settings. Currently only login/register is publicly accessible.
-- User authentication is handled using **ASP.NET Core Identity**. A zero-trust policy is applied across every page unless explicitly marked as publicly accessible (login/register). 
+- Authentication is required to access the application. Users must be logged in to manage social media settings. Currently only login/register/forgot password is publicly accessible.
+- User authentication is handled using **ASP.NET Core Identity**. A zero-trust policy is applied across every page unless explicitly marked as publicly accessible (login/register/forgot password). 
 - User passwords are **securely hashed**.
+- Password reset functionality is implemented using ASP.NET Core Identity secure token generation.
+- Password recovery links are delivered via email and contain a secure, time-limited, user-bound token, ensuring that only the intended recipient can reset the account password.
 - API tokens and secrets are **encrypted before being stored** in the database.
 - Secrets are **never returned in plain text** to the UI after saving. Instead, a masked placeholder (e.g. `********`) is shown.
 - Database access is restricted to the application via Azure SQL configuration.
