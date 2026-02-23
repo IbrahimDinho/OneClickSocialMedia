@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
 using OneClickSocialMedia.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
@@ -46,3 +43,4 @@ namespace OneClickSocialMedia.Business.QueryHandler
         }
     }
 }
+

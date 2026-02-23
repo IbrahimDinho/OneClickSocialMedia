@@ -1,6 +1,4 @@
-using EmailService;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
@@ -13,15 +11,15 @@ namespace OneClickSocialMedia.Controllers
     public class HomeController : Controller
     {
         private readonly IMediator mediator;
-        
-        public HomeController(IMediator mediator) 
+
+        public HomeController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
         public IActionResult Index()
         {
-            return View(); 
+            return View();
         }
 
         public IActionResult Privacy()
@@ -102,7 +100,7 @@ namespace OneClickSocialMedia.Controllers
                 URLforImage = viewModel.URLforImage,
                 UserId = currentUserId,
             };
-            
+
             PostToSocialMediaResponse response = mediator.Send(request).GetAwaiter().GetResult();
 
             if (response.IsSuccess)

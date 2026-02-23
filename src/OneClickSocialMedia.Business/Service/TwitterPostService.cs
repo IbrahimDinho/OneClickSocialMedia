@@ -1,12 +1,5 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using OneClickSocialMedia.Contract;
-using OneClickSocialMedia.Contract.Dtos;
+﻿using OneClickSocialMedia.Contract.Dtos;
 using OneClickSocialMedia.Contract.Services;
-using OneClickSocialMedia.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 namespace OneClickSocialMedia.Business.Service
 {
     public class TwitterPostService : ITwitterPostService

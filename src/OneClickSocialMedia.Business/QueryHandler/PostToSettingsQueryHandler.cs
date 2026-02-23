@@ -4,9 +4,6 @@ using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
 using OneClickSocialMedia.Business.Service;
 using OneClickSocialMedia.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
@@ -15,7 +12,8 @@ namespace OneClickSocialMedia.Business.QueryHandler
         private readonly EncryptionService encryptionService;
         private readonly AppDbContext context;
 
-        public PostToSettingsQueryHandler(EncryptionService encryptionService, AppDbContext context) { 
+        public PostToSettingsQueryHandler(EncryptionService encryptionService, AppDbContext context)
+        {
             this.encryptionService = encryptionService;
             this.context = context;
         }
@@ -31,7 +29,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
 
             if (!string.IsNullOrWhiteSpace(request.TwitterApiSecret))
             {
-                encryptedTwitterAPISecret = encryptionService.Encrypt("Twitter",request.TwitterApiSecret);
+                encryptedTwitterAPISecret = encryptionService.Encrypt("Twitter", request.TwitterApiSecret);
             }
             if (!string.IsNullOrWhiteSpace(request.TwitterAccessTokenSecret))
             {

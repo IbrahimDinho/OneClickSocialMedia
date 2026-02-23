@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OneClickSocialMedia.Business.Query.Response
+﻿namespace OneClickSocialMedia.Business.Query.Response
 {
     public class PostToSocialMediaResponse : Response
     {
-   
+
     }
 }
+

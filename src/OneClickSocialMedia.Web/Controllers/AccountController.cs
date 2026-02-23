@@ -1,8 +1,5 @@
-﻿using Azure;
-using EmailService;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using OneClickSocialMedia.Business.Query;
@@ -97,7 +94,7 @@ namespace OneClickSocialMedia.Web.Controllers
                     {
                         ModelState.AddModelError("", error);
                     }
-                    
+
                 }
 
             }

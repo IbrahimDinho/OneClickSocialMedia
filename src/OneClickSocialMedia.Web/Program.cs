@@ -3,13 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using OneClickSocialMedia.Business;
 using OneClickSocialMedia.Business.Service;
 using OneClickSocialMedia.Contract;
 using OneClickSocialMedia.Contract.Services;
 using OneClickSocialMedia.Data;
-using System;
 
 namespace OneClickSocialMedia
 {
@@ -64,7 +62,7 @@ namespace OneClickSocialMedia
                 // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
 
                 // sign in config.
                 options.SignIn.RequireConfirmedAccount = false;

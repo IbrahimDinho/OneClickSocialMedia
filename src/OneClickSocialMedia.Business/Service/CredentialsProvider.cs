@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.EntityFrameworkCore;
 using OneClickSocialMedia.Contract;
 using OneClickSocialMedia.Contract.Dtos;
-using OneClickSocialMedia.Contract.Services;
 using OneClickSocialMedia.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
 
 namespace OneClickSocialMedia.Business.Service
 {

@@ -1,10 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using OneClickSocialMedia.Business.Query.Response;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace OneClickSocialMedia.Business.Query
 {
@@ -47,3 +43,4 @@ namespace OneClickSocialMedia.Business.Query
         public string UserId { get; set; }
     }
 }
+

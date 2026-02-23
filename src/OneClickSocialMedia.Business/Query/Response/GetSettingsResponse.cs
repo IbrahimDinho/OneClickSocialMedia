@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OneClickSocialMedia.Business.Query.Response
+﻿namespace OneClickSocialMedia.Business.Query.Response
 {
     public class GetSettingsResponse : Response
     {
@@ -19,3 +15,4 @@ namespace OneClickSocialMedia.Business.Query.Response
         public bool HasTwitterApiSecret { get; set; }
     }
 }
+

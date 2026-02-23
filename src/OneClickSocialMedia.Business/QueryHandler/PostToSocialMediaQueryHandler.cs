@@ -1,13 +1,9 @@
 ﻿using MediatR;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
-using OneClickSocialMedia.Business.Service;
 using OneClickSocialMedia.Contract;
 using OneClickSocialMedia.Contract.Dtos;
 using OneClickSocialMedia.Contract.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
@@ -26,7 +22,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
             //split into 3 services each service posts. can do validation and all in the services and 1 credential provider to get
             // things from the database
             TwitterCredentialsDto twitterCredentials = await credentialsProvider.GetTwitterCredsUserAsync(Guid.Parse(request.UserId));
-            
+
             // If no image just normal post otherwise post with image url or file
             twitterPostService.PostAsync(request.Comment, twitterCredentials);
 
