@@ -15,11 +15,19 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <div class="input-group">
+                <input asp-for="Password" class="form-control" id="Password" />
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="togglePassword('Password', this)">
+                        <i class="fa fa-eye"></i>
+                        <span class="toggle-text ms-1">Show</span>
+                    </button>
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="float-end">
-                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                <a asp-controller="Account" asp-action="ForgotPassword" class="text-decoration-none">
                     Forgot password?
                 </a>
             </div>
@@ -37,8 +45,14 @@
     </div>
 </div>
 
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+}
+
+
 @section Scripts {
     @{
+        <script src="~/js/login-page.js" asp-append-version="true"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
     }
 }
