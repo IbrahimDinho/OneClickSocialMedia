@@ -3,7 +3,7 @@ using OneClickSocialMedia.Business.Query.Response;
 
 namespace OneClickSocialMedia.Business.Query
 {
-    public class PostToSettingsQuery : IRequest<PostToSettingsResponse>
+    public class PostToSettingsCommand : IRequest<PostToSettingsResponse>
     {
         /// <summary>
         /// User Id

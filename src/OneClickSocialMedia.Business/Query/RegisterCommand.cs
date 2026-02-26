@@ -3,7 +3,7 @@ using OneClickSocialMedia.Business.Query.Response;
 
 namespace OneClickSocialMedia.Business.Query
 {
-    public class RegisterQuery : IRequest<RegisterResponse>
+    public class RegisterCommand : IRequest<RegisterResponse>
     {
 
         /// <summary>

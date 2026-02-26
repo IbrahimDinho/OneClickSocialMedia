@@ -6,16 +6,16 @@ using OneClickSocialMedia.Data;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
-    public class RegisterQueryHandler : IRequestHandler<RegisterQuery, RegisterResponse>
+    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResponse>
     {
         private readonly UserManager<Users> userManager;
 
-        public RegisterQueryHandler(UserManager<Users> userManager)
+        public RegisterCommandHandler(UserManager<Users> userManager)
         {
             this.userManager = userManager;
         }
 
-        public async Task<RegisterResponse> Handle(RegisterQuery request, CancellationToken cancellationToken)
+        public async Task<RegisterResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             Users users = new Users
             {

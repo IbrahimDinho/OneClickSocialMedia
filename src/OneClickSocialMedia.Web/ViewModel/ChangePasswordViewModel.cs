@@ -14,6 +14,7 @@ namespace OneClickSocialMedia.Web.ViewModel
         /// <summary>
         /// The old password
         /// </summary>
+        [Display(Name = "Current Password")]
         public string CurrentPassword { get; set; }
 
         /// <summary>

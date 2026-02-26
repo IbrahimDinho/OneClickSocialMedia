@@ -2,7 +2,7 @@
 
 namespace OneClickSocialMedia.Web.ViewModel
 {
-    public class VerifyEmailViewModel
+    public class ForgotPasswordViewModel
     {
 
         /// <summary>

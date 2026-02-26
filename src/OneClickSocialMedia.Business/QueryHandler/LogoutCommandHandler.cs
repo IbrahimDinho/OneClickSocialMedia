@@ -6,16 +6,16 @@ using OneClickSocialMedia.Data;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
-    public class LogoutQueryHandler : IRequestHandler<LogoutQuery, LogoutResponse>
+    public class LogoutCommandHandler : IRequestHandler<LogoutCommand, LogoutResponse>
     {
         private readonly SignInManager<Users> signInManager;
 
-        public LogoutQueryHandler(SignInManager<Users> signInManager)
+        public LogoutCommandHandler(SignInManager<Users> signInManager)
         {
             this.signInManager = signInManager;
         }
 
-        public async Task<LogoutResponse> Handle(LogoutQuery request, CancellationToken cancellationToken)
+        public async Task<LogoutResponse> Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
                 await signInManager.SignOutAsync();
 

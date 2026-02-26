@@ -31,7 +31,7 @@ namespace OneClickSocialMedia.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                LoginQuery command = new LoginQuery();
+                LoginCommand command = new LoginCommand();
                 command.Email = viewModel.Email;
                 command.Password = viewModel.Password;
                 command.RememberMe = viewModel.RememberMe;
@@ -62,7 +62,7 @@ namespace OneClickSocialMedia.Web.Controllers
 
         public IActionResult Logout()
         {
-            LogoutQuery command = new LogoutQuery();
+            LogoutCommand command = new LogoutCommand();
             LogoutResponse response = mediator.Send(command).GetAwaiter().GetResult();
             return RedirectToAction("Index", "Home");
         }
@@ -79,7 +79,7 @@ namespace OneClickSocialMedia.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                RegisterQuery command = new RegisterQuery();
+                RegisterCommand command = new RegisterCommand();
                 command.Name = viewModel.Name;
                 command.Email = viewModel.Email;
                 command.Password = viewModel.Password;
@@ -114,7 +114,7 @@ namespace OneClickSocialMedia.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(VerifyEmailViewModel model)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -157,7 +157,7 @@ namespace OneClickSocialMedia.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            ResetPasswordQuery query = new ResetPasswordQuery()
+            ResetPasswordCommand query = new ResetPasswordCommand()
             {
                 Email = model.Email,
                 Password = model.Password,

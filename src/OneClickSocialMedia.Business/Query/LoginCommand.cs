@@ -3,7 +3,7 @@ using OneClickSocialMedia.Business.Query.Response;
 
 namespace OneClickSocialMedia.Business.Query
 {
-    public class LoginQuery : IRequest<LoginResponse>
+    public class LoginCommand : IRequest<LoginResponse>
     {
         /// <summary>
         /// Email Address of user

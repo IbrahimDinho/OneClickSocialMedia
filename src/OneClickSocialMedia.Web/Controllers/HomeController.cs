@@ -62,7 +62,7 @@ namespace OneClickSocialMedia.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PostSettings(SocialMediaSettingsViewModel viewModel)
         {
-            PostToSettingsQuery request = new PostToSettingsQuery()
+            PostToSettingsCommand command = new PostToSettingsCommand()
             {
                 TwitterApiKey = viewModel.TwitterApiKey?.Trim(), //trim to remove accidental white space when paste in.
                 TwitterApiSecret = viewModel.TwitterApiSecret?.Trim(),
@@ -70,7 +70,7 @@ namespace OneClickSocialMedia.Controllers
                 TwitterAccessTokenSecret = viewModel.TwitterAccessTokenSecret?.Trim(),
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
             };
-            PostToSettingsResponse response = mediator.Send(request).GetAwaiter().GetResult();
+            PostToSettingsResponse response = mediator.Send(command).GetAwaiter().GetResult();
 
             if (response.IsSuccess)
             {
@@ -92,7 +92,7 @@ namespace OneClickSocialMedia.Controllers
 
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            PostToSocialMediaQuery request = new PostToSocialMediaQuery()
+            PostToSocialMediaCommand command = new PostToSocialMediaCommand()
             {
                 IsFaceBook = viewModel.IsFaceBook,
                 IsInstagram = viewModel.IsInstagram,
@@ -103,7 +103,7 @@ namespace OneClickSocialMedia.Controllers
                 UserId = currentUserId,
             };
 
-            PostToSocialMediaResponse response = mediator.Send(request).GetAwaiter().GetResult();
+            PostToSocialMediaResponse response = mediator.Send(command).GetAwaiter().GetResult();
 
             if (response.IsSuccess)
             {

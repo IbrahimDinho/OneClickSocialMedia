@@ -3,7 +3,7 @@ using OneClickSocialMedia.Business.Query.Response;
 
 namespace OneClickSocialMedia.Business.Query
 {
-    public class LogoutQuery : IRequest<LogoutResponse>
+    public class LogoutCommand : IRequest<LogoutResponse>
     {
     }
 }

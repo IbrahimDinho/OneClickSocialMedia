@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OneClickSocialMedia.Business.Query
 {
-    public class PostToSocialMediaQuery : IRequest<PostToSocialMediaResponse>
+    public class PostToSocialMediaCommand : IRequest<PostToSocialMediaResponse>
     {
         /// <summary>
         /// If facebook checkbox has been checked by user

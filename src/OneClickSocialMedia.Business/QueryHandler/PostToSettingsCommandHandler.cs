@@ -7,19 +7,19 @@ using OneClickSocialMedia.Data;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
-    public class PostToSettingsQueryHandler : IRequestHandler<PostToSettingsQuery, PostToSettingsResponse>
+    public class PostToSettingsCommandHandler : IRequestHandler<PostToSettingsCommand, PostToSettingsResponse>
     {
         private readonly EncryptionService encryptionService;
         private readonly AppDbContext context;
 
-        public PostToSettingsQueryHandler(EncryptionService encryptionService, AppDbContext context)
+        public PostToSettingsCommandHandler(EncryptionService encryptionService, AppDbContext context)
         {
             this.encryptionService = encryptionService;
             this.context = context;
         }
 
 
-        public async Task<PostToSettingsResponse> Handle(PostToSettingsQuery request, CancellationToken cancellationToken)
+        public async Task<PostToSettingsResponse> Handle(PostToSettingsCommand request, CancellationToken cancellationToken)
         {
             TwitterOAuthTokens existing = await context.TwitterOAuthTokens
         .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);

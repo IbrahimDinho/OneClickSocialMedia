@@ -8,17 +8,17 @@ using System.Text;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
-    public class ResetPasswordQueryHandler : IRequestHandler<ResetPasswordQuery, ResetPasswordResponse>
+    public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, ResetPasswordResponse>
     {
         private readonly SignInManager<Users> signInManager;
 
 
-        public ResetPasswordQueryHandler(SignInManager<Users> signInManager)
+        public ResetPasswordCommandHandler(SignInManager<Users> signInManager)
         {
             this.signInManager = signInManager;
         }
 
-        public async Task<ResetPasswordResponse> Handle(ResetPasswordQuery request, CancellationToken cancellationToken)
+        public async Task<ResetPasswordResponse> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await signInManager.UserManager.FindByEmailAsync(request.Email);
 

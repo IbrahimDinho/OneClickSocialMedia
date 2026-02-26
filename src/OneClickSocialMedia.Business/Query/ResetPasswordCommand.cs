@@ -3,7 +3,7 @@ using OneClickSocialMedia.Business.Query.Response;
 
 namespace OneClickSocialMedia.Business.Query
 {
-    public class ResetPasswordQuery : IRequest<ResetPasswordResponse>
+    public class ResetPasswordCommand : IRequest<ResetPasswordResponse>
     {
         /// <summary>
         /// The email of the user
