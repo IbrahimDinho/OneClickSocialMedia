@@ -19,25 +19,25 @@ namespace OneClickSocialMedia.Controllers
             this.mediator = mediator;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult Setting()
+        public async Task<IActionResult> Setting()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             GetSettingsQuery request = new GetSettingsQuery();
             request.UserId = userId;
 
-            GetSettingsResponse response = mediator.Send(request).GetAwaiter().GetResult();
+            GetSettingsResponse response = await mediator.Send(request);
 
             if (!response.IsSuccess)
             {
@@ -60,7 +60,7 @@ namespace OneClickSocialMedia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PostSettings(SocialMediaSettingsViewModel viewModel)
+        public async Task<IActionResult> PostSettings(SocialMediaSettingsViewModel viewModel)
         {
             PostToSettingsCommand command = new PostToSettingsCommand()
             {
@@ -70,7 +70,7 @@ namespace OneClickSocialMedia.Controllers
                 TwitterAccessTokenSecret = viewModel.TwitterAccessTokenSecret?.Trim(),
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
             };
-            PostToSettingsResponse response = mediator.Send(command).GetAwaiter().GetResult();
+            PostToSettingsResponse response = await mediator.Send(command);
 
             if (response.IsSuccess)
             {

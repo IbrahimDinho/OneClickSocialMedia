@@ -18,7 +18,7 @@ namespace OneClickSocialMedia.Web.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login(string? returnUrl = null)
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl ?? Request.Query["ReturnUrl"].ToString();
             return View();
@@ -27,7 +27,7 @@ namespace OneClickSocialMedia.Web.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginViewModel viewModel, string? returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel viewModel, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace OneClickSocialMedia.Web.Controllers
         }
 
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             LogoutCommand command = new LogoutCommand();
             LogoutResponse response = mediator.Send(command).GetAwaiter().GetResult();
@@ -68,14 +68,14 @@ namespace OneClickSocialMedia.Web.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             return View();
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register(RegisterViewModel viewModel)
+        public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -180,7 +180,7 @@ namespace OneClickSocialMedia.Web.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult ResetPasswordConfirmation()
+        public async Task<IActionResult> ResetPasswordConfirmation()
         {
             return View();
         }

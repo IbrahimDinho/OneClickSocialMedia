@@ -17,13 +17,12 @@ namespace OneClickSocialMedia.Business.QueryHandler
 
         public async Task<LogoutResponse> Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
-                await signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
 
-                return new LogoutResponse
-                {
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+            return new LogoutResponse
+            {
+                IsSuccess = true,
+            };
         }
     }
 }
