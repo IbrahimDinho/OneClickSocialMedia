@@ -1,9 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EmailService
 {
@@ -91,12 +88,6 @@ namespace EmailService
                         font-size:14px;font-weight:bold;'>
                 Reset Password
               </a>
-            </td>
-          </tr>
-
-          <tr>
-            <td style='font-size:12px;word-break:break-all;color:#2563eb;padding-bottom:25px;'>
-              {resetLink}
             </td>
           </tr>
 
