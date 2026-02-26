@@ -185,7 +185,44 @@ namespace OneClickSocialMedia.Web.Controllers
             return View();
         }
 
+        [Authorize]
+        public async Task<IActionResult> ChangePassword()
+        {
+            ChangePasswordQuery query = new ChangePasswordQuery();
 
+            ChangePasswordResponse response = await mediator.Send(query);
+
+            return View(new ChangePasswordViewModel { Email = response.Email });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var command = new ChangePasswordCommand
+            {
+                CurrentPassword = model.CurrentPassword,
+                NewPassword = model.NewPassword,
+                ConfirmNewPassword = model.ConfirmNewPassword
+            };
+
+            ChangePasswordCommandResponse response = await mediator.Send(command);
+
+            if (response.IsSuccess)
+                return RedirectToAction(nameof(ResetPasswordConfirmation));
+
+            if (response.ErrorMessages != null)
+            {
+                foreach (var error in response.ErrorMessages)
+                    ModelState.AddModelError("", error);
+            }
+
+            return View(model);
+
+        }
 
     }
 }
