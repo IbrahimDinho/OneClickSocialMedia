@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
@@ -8,6 +9,7 @@ using System.Security.Claims;
 
 namespace OneClickSocialMedia.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IMediator mediator;

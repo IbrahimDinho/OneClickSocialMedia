@@ -7,7 +7,7 @@ using OneClickSocialMedia.Web.ViewModel;
 
 namespace OneClickSocialMedia.Web.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly IMediator mediator;
@@ -17,12 +17,14 @@ namespace OneClickSocialMedia.Web.Controllers
             this.mediator = mediator;
         }
 
+        [AllowAnonymous]
         public IActionResult Login(string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl ?? Request.Query["ReturnUrl"].ToString();
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel viewModel, string? returnUrl = null)
@@ -57,6 +59,7 @@ namespace OneClickSocialMedia.Web.Controllers
             return View(viewModel);
         }
 
+
         public IActionResult Logout()
         {
             LogoutQuery command = new LogoutQuery();
@@ -64,11 +67,13 @@ namespace OneClickSocialMedia.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Register(RegisterViewModel viewModel)
         {
@@ -101,11 +106,13 @@ namespace OneClickSocialMedia.Web.Controllers
 
         }
 
+        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(VerifyEmailViewModel model)
         {
@@ -116,6 +123,7 @@ namespace OneClickSocialMedia.Web.Controllers
             return RedirectToAction(nameof(RecoverAccountConfirmation), new { email = model.Email });
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> RecoverAccountConfirmation(string email)
         {
             ForgotPasswordQuery query = new ForgotPasswordQuery()
@@ -128,6 +136,7 @@ namespace OneClickSocialMedia.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult ResetPassword(string token, string email)
         {
             if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(email))
@@ -142,6 +151,7 @@ namespace OneClickSocialMedia.Web.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -169,10 +179,12 @@ namespace OneClickSocialMedia.Web.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()
         {
             return View();
         }
+
 
 
     }
