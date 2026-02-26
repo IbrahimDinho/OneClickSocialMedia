@@ -11,14 +11,14 @@ using IEmailSender = EmailService.IEmailSender;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
-    public class ForgotPasswordHandler : IRequestHandler<ForgotPasswordQuery, ForgotPasswordResponse>
+    public class ForgotPasswordQueryHandler : IRequestHandler<ForgotPasswordQuery, ForgotPasswordResponse>
     {
         private readonly SignInManager<Users> signInManager;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IEmailSender emailSender;
 
 
-        public ForgotPasswordHandler(SignInManager<Users> signInManager, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
+        public ForgotPasswordQueryHandler(SignInManager<Users> signInManager, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
         {
             this.signInManager = signInManager;
             this.httpContextAccessor = httpContextAccessor;
@@ -30,7 +30,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
             var user = await signInManager.UserManager.FindByEmailAsync(request.Email);
 
             // Do NOT reveal whether the account exists or is confirmed so its still a success
-            if (user == null || !await signInManager.UserManager.IsEmailConfirmedAsync(user))
+            if (user == null)
             {
                 return new ForgotPasswordResponse
                 {

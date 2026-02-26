@@ -1,11 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
 using OneClickSocialMedia.Web.ViewModel;
-using System.Text;
 
 namespace OneClickSocialMedia.Web.Controllers
 {
@@ -115,11 +113,18 @@ namespace OneClickSocialMedia.Web.Controllers
                 return View(model);
 
 
-            return RedirectToAction("RecoverAccountConfirmation");
+            return RedirectToAction(nameof(RecoverAccountConfirmation), new { email = model.Email });
         }
 
-        public IActionResult RecoverAccountConfirmation()
+        public async Task<IActionResult> RecoverAccountConfirmation(string email)
         {
+            ForgotPasswordQuery query = new ForgotPasswordQuery()
+            {
+                Email = email
+            };
+
+            ForgotPasswordResponse response = await mediator.Send(query);
+
             return View();
         }
 
@@ -131,7 +136,7 @@ namespace OneClickSocialMedia.Web.Controllers
             var model = new ResetPasswordViewModel
             {
                 Email = email,
-                Token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token))
+                Token = token
             };
 
             return View(model);

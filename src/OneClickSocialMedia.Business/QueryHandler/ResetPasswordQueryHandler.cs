@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
 using OneClickSocialMedia.Data;
+using System.Text;
 
 namespace OneClickSocialMedia.Business.QueryHandler
 {
@@ -36,10 +38,11 @@ namespace OneClickSocialMedia.Business.QueryHandler
                     ErrorMessages = new List<string> { "Passwords do not match." }
                 };
             }
+            string decodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Token));
 
             var result = await signInManager.UserManager.ResetPasswordAsync(
                 user,
-                request.Token,
+                decodedToken,
                 request.Password
                 );
 
