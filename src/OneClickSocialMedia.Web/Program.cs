@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using OneClickSocialMedia.Business;
+using OneClickSocialMedia.Business.Identity;
 using OneClickSocialMedia.Business.Service;
 using OneClickSocialMedia.Contract;
 using OneClickSocialMedia.Contract.Services;
@@ -70,7 +71,8 @@ namespace OneClickSocialMedia
                 options.SignIn.RequireConfirmedEmail = false;
             })
             .AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddPasswordValidator<CustomPasswordValidator<Users>>();
 
             builder.Services.AddDataProtection();
 
