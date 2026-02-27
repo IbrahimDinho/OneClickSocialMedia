@@ -22,6 +22,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 Name = request.Name,
                 Email = request.Email,
                 UserName = request.Email,
+                EmailConfirmed = true,
             };
 
 

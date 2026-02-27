@@ -17,22 +17,31 @@ namespace OneClickSocialMedia.Business.QueryHandler
 
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            SignInResult result = await signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, false);
+            const string InvalidCredentials = "Email or password is incorrect.";
+            const string LockedOutMessage = "The account is locked out.";
 
+            var user = await signInManager.UserManager.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return new LoginResponse { IsSuccess = false, ErrorMessage = InvalidCredentials };
+            }
+
+            if (await signInManager.UserManager.IsLockedOutAsync(user))
+            {
+                return new LoginResponse { IsSuccess = false, ErrorMessage = LockedOutMessage };
+            }
+
+            SignInResult result = await signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, true);
 
             if (result.Succeeded)
             {
-                LoginResponse response = new LoginResponse();
-                response.IsSuccess = true;
-                return response;
+                return new LoginResponse { IsSuccess = true };
             }
             else
             {
-                LoginResponse response = new LoginResponse();
-                response.IsSuccess = false;
-                response.ErrorMessage = "Email or password is incorrect.";
-                return response;
+                return new LoginResponse { IsSuccess = false, ErrorMessage = LockedOutMessage };
             }
+
         }
     }
 }
