@@ -37,9 +37,13 @@ namespace OneClickSocialMedia.Business.QueryHandler
             {
                 return new LoginResponse { IsSuccess = true };
             }
-            else
+            else if (result.IsLockedOut)
             {
                 return new LoginResponse { IsSuccess = false, ErrorMessage = LockedOutMessage };
+            }
+            else
+            {
+                return new LoginResponse { IsSuccess = false, ErrorMessage = InvalidCredentials };
             }
 
         }
