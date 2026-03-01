@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Enable Two-Factor Authentication";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm p-4">
+        <h3 class="mb-3">Enable Two-Factor Authentication</h3>
+
+        <p>
+            For additional security, you can enable two-factor authentication (2FA).
+            When enabled, you’ll receive a verification code via email when signing in.
+        </p>
+
+        <form asp-action="EnableTwoFactor" method="post">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="d-flex gap-3 mt-4">
+                <button type="submit"
+                        name="enable"
+                        value="true"
+                        class="btn btn-primary">
+                    Enable 2FA
+                </button>
+
+                <button type="submit"
+                        name="enable"
+                        value="false"
+                        class="btn btn-outline-secondary">
+                    Not Now
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

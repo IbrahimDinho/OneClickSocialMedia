@@ -9,15 +9,17 @@ namespace OneClickSocialMedia.Business.QueryHandler
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResponse>
     {
         private readonly UserManager<Users> userManager;
+        private readonly SignInManager<Users> signInManager;
 
-        public RegisterCommandHandler(UserManager<Users> userManager)
+        public RegisterCommandHandler(UserManager<Users> userManager, SignInManager<Users> signInManager)
         {
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public async Task<RegisterResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            Users users = new Users
+            Users user = new Users
             {
                 Name = request.Name,
                 Email = request.Email,
@@ -26,10 +28,12 @@ namespace OneClickSocialMedia.Business.QueryHandler
             };
 
 
-            IdentityResult result = await userManager.CreateAsync(users, request.Password);
+            IdentityResult result = await userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)
             {
+                await signInManager.SignInAsync(user, isPersistent: false);
+
                 RegisterResponse response = new RegisterResponse();
                 response.IsSuccess = true;
                 return response;

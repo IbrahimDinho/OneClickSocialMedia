@@ -103,7 +103,7 @@ namespace OneClickSocialMedia.Controllers
                 UserId = currentUserId,
             };
 
-            PostToSocialMediaResponse response = mediator.Send(command).GetAwaiter().GetResult();
+            PostToSocialMediaResponse response = await mediator.Send(command);
 
             if (response.IsSuccess)
             {

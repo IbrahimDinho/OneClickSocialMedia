@@ -26,5 +26,20 @@ namespace OneClickSocialMedia.Web.ViewModel
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 
+        /// <summary>
+        /// If 2 factor authentication has been enabled
+        /// </summary>
+        public bool RequiresTwoFactor { get; set; }
+
+        /// <summary>
+        /// 2 factor provider, so far only implemented email
+        /// </summary>
+        public string TwoFactorProvider { get; set; }
+
+        /// <summary>
+        /// The 2 factor code from the user to authenticate them.
+        /// </summary>
+        public string TwoFactorCode { get; set; }
+
     }
 }

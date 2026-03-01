@@ -45,6 +45,52 @@
     </div>
 </div>
 
+@if (Model.RequiresTwoFactor)
+{
+    <div class="modal fade" id="twoFactorModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter verification code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        We sent a verification code to your email.
+                    </div>
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <form asp-action="VerifyTwoFactor" asp-controller="Account" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <!-- keep state -->
+                        <input type="hidden" asp-for="Email" />
+                        <input type="hidden" asp-for="RememberMe" />
+                        <input type="hidden" asp-for="TwoFactorProvider" />
+
+                        <div class="mb-3">
+                            <label asp-for="TwoFactorCode" class="form-label">Verification code</label>
+                            <input asp-for="TwoFactorCode" class="form-control" autocomplete="one-time-code" />
+                            <span asp-validation-for="TwoFactorCode" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = new bootstrap.Modal(document.getElementById('twoFactorModal'));
+            modal.show();
+        });
+    </script>
+}
+
 @section Styles {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 }

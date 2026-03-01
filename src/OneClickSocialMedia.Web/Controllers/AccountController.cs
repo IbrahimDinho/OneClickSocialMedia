@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
@@ -21,7 +22,7 @@ namespace OneClickSocialMedia.Web.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl ?? Request.Query["ReturnUrl"].ToString();
-            return View();
+            return View(new LoginViewModel());
         }
 
         [AllowAnonymous]
@@ -36,10 +37,23 @@ namespace OneClickSocialMedia.Web.Controllers
                 command.Password = viewModel.Password;
                 command.RememberMe = viewModel.RememberMe;
 
-                LoginResponse response = mediator.Send(command).GetAwaiter().GetResult();
+                LoginResponse response = await mediator.Send(command);
 
                 if (response.IsSuccess)
                 {
+                    if (response.RequiresTwoFactor)
+                    {
+                        viewModel.RequiresTwoFactor = true;
+                        viewModel.TwoFactorProvider = response.TwoFactorProvider;
+
+                        return View(viewModel);
+                    }
+
+                    if (response.ShouldPromptEnableTwoFactor)
+                    {
+                        return RedirectToAction(nameof(EnableTwoFactor));
+                    }
+
                     //Go to redirect if needs be and is safe.
                     //e.g deal with -> https://localhost:7275/Account/Login?ReturnUrl=https://evil.com
                     if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -63,7 +77,38 @@ namespace OneClickSocialMedia.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             LogoutCommand command = new LogoutCommand();
-            LogoutResponse response = mediator.Send(command).GetAwaiter().GetResult();
+            LogoutResponse response = await mediator.Send(command);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VerifyTwoFactor(LoginViewModel viewModel)
+        {
+            if (string.IsNullOrWhiteSpace(viewModel.TwoFactorCode))
+            {
+                ModelState.AddModelError("", "Please enter the verification code.");
+                viewModel.RequiresTwoFactor = true;
+                return View("Login", viewModel);
+            }
+
+            VerifyTwoFactorCommandResponse response = await mediator.Send(new VerifyTwoFactorCommand
+            {
+                Code = viewModel.TwoFactorCode,
+                Provider = viewModel.TwoFactorProvider ?? TokenOptions.DefaultEmailProvider,
+                RememberMe = viewModel.RememberMe
+            });
+
+            if (!response.IsSuccess)
+            {
+                foreach (string error in response.ErrorMessages)
+                    ModelState.AddModelError("", error);
+
+                viewModel.RequiresTwoFactor = true;
+                return View("Login", viewModel);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -85,11 +130,11 @@ namespace OneClickSocialMedia.Web.Controllers
                 command.Password = viewModel.Password;
                 command.ConfirmPassword = viewModel.ConfirmPassword;
 
-                RegisterResponse response = mediator.Send(command).GetAwaiter().GetResult();
+                RegisterResponse response = await mediator.Send(command);
 
                 if (response.IsSuccess)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction(nameof(EnableTwoFactor));
                 }
                 else
                 {
@@ -140,7 +185,7 @@ namespace OneClickSocialMedia.Web.Controllers
         public IActionResult ResetPassword(string token, string email)
         {
             if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(email))
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction(nameof(Login));
 
             var model = new ResetPasswordViewModel
             {
@@ -222,6 +267,42 @@ namespace OneClickSocialMedia.Web.Controllers
 
             return View(model);
 
+        }
+
+        [Authorize]
+        public async Task<IActionResult> EnableTwoFactor()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EnableTwoFactor(bool enable)
+        {
+            if (enable == false)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            Enable2FactorCommand command = new Enable2FactorCommand()
+            {
+                Enable = true,
+            };
+
+            Enable2FactorCommandResponse response = await mediator.Send(command);
+
+            if (response.IsSuccess == false)
+            {
+                foreach (string error in response.ErrorMessages)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

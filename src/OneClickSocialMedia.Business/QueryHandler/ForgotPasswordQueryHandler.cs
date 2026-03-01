@@ -55,7 +55,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 resetLink
             );
 
-            await emailSender.SendEmailAsync(message);
+            await emailSender.SendEmailAsyncResetPassword(message);
 
             return new ForgotPasswordResponse
             {

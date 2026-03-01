@@ -17,9 +17,15 @@ namespace EmailService
             Send(emailMessage);
         }
 
-        public async Task SendEmailAsync(Message message)
+        public async Task SendEmailAsyncResetPassword(Message message)
         {
-            var mailMessage = CreateEmailMessage(message);
+            var mailMessage = CreateEmailMessageResetPassword(message);
+            await SendAsync(mailMessage);
+        }
+
+        public async Task SendEmailAsyncOTPCode(Message message)
+        {
+            var mailMessage = CreateEmailMessageOTP(message);
             await SendAsync(mailMessage);
         }
 
@@ -48,6 +54,155 @@ namespace EmailService
         }
 
         private MimeMessage CreateEmailMessage(Message message)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("OneClickSocialMedia", emailConfig.From));
+            emailMessage.To.AddRange(message.To);
+            emailMessage.Subject = message.Subject;
+
+            var htmlBody = $@"
+<!doctype html>
+<html>
+<body style='margin:0;padding:0;background:#f5f7fa;font-family:Arial,Helvetica,sans-serif;'>
+
+  <table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='padding:40px 15px;'>
+    <tr>
+      <td align='center'>
+        <table role='presentation' width='600' cellpadding='0' cellspacing='0'
+               style='max-width:600px;background:#ffffff;border-radius:10px;
+                      padding:30px;border:1px solid #e5e7eb;'>
+
+          <tr>
+            <td style='font-size:18px;font-weight:bold;color:#111827;padding-bottom:20px;'>
+              {message.Subject}
+            </td>
+          </tr>
+
+          <tr>
+            <td style='font-size:14px;line-height:22px;color:#374151;padding-bottom:20px;'>
+              {message.Content}
+            </td>
+          </tr>
+
+          <tr>
+            <td style='font-size:12px;color:#9ca3af;padding-top:15px;'>
+              If you did not expect this email, you can safely ignore it.
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>";
+
+            var textBody = $@"
+{message.Subject}
+
+{message.Content}
+
+If you did not expect this email, you can safely ignore it.
+";
+
+            var bodyBuilder = new BodyBuilder
+            {
+                HtmlBody = htmlBody,
+                TextBody = textBody
+            };
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+
+            return emailMessage;
+        }
+
+        private MimeMessage CreateEmailMessageOTP(Message message)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("OneClickSocialMedia", emailConfig.From));
+            emailMessage.To.AddRange(message.To);
+            emailMessage.Subject = message.Subject;
+
+            string verificationCode = message.Content;
+
+            // HTML version
+            var htmlBody = $@"
+<!doctype html>
+<html>
+<body style='margin:0;padding:0;background:#f5f7fa;font-family:Arial,Helvetica,sans-serif;'>
+
+  <table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='padding:40px 15px;'>
+    <tr>
+      <td align='center'>
+        <table role='presentation' width='600' cellpadding='0' cellspacing='0'
+               style='max-width:600px;background:#ffffff;border-radius:10px;padding:30px;border:1px solid #e5e7eb;'>
+
+          <tr>
+            <td style='font-size:18px;font-weight:bold;color:#111827;padding-bottom:20px;'>
+              Two-Factor Authentication Code
+            </td>
+          </tr>
+
+          <tr>
+            <td style='font-size:14px;line-height:22px;color:#374151;padding-bottom:20px;'>
+              To complete your login to <strong>OneClickSocialMedia</strong>, 
+              please use the verification code below:
+            </td>
+          </tr>
+
+          <tr>
+            <td align='center' style='padding:20px 0;'>
+              <div style='display:inline-block;
+                          background:#f3f4f6;
+                          padding:15px 25px;
+                          font-size:24px;
+                          font-weight:bold;
+                          letter-spacing:4px;
+                          border-radius:8px;
+                          color:#111827;'>
+                {verificationCode}
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td style='font-size:13px;line-height:20px;color:#6b7280;padding-top:10px;'>
+              This code will expire shortly for security reasons.
+              If you did not attempt to log in, you can safely ignore this email.
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>";
+
+            var textBody = $@"
+Two-Factor Authentication Code
+
+To complete your login to OneClickSocialMedia, use the verification code below:
+
+{verificationCode}
+
+This code will expire shortly.
+If you did not attempt to log in, you can safely ignore this email.
+";
+
+            var bodyBuilder = new BodyBuilder
+            {
+                HtmlBody = htmlBody,
+                TextBody = textBody
+            };
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+            return emailMessage;
+        }
+
+        private MimeMessage CreateEmailMessageResetPassword(Message message)
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("OneClickSocialMedia", emailConfig.From));

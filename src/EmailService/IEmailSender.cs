@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EmailService
+﻿namespace EmailService
 {
     public interface IEmailSender
     {
@@ -13,11 +9,18 @@ namespace EmailService
         void SendEmail(Message message);
 
         /// <summary>
-        /// Send email asynchronously for oneclicksocial media users.
+        /// Send email asynchronously for oneclicksocial media users to reset password
         /// </summary>
         /// <param name="message">message to be sent to user. Would be the password url reset</param>
         /// <returns></returns>
-        Task SendEmailAsync(Message message);
+        Task SendEmailAsyncResetPassword(Message message);
+
+        /// <summary>
+        /// Send email asynchronously for oneclicksocial media users for 2FA. 
+        /// </summary>
+        /// <param name="message">message to be sent to user. Would be the password url reset</param>
+        /// <returns></returns>
+        Task SendEmailAsyncOTPCode(Message message);
     }
 
 }
