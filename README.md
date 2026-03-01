@@ -39,11 +39,13 @@ A step-by-step guide will be added covering:
 
 ## Security Notes
 
-- Authentication is required to access the application. Users must be logged in to manage social media settings. Currently only login/register/forgot password is publicly accessible.
+- Authentication is required to access the application. Users must be logged in to manage social media settings. Currently only login/register/forgot-password pages are publicly accessible.
 - User authentication is handled using **ASP.NET Core Identity**. A zero-trust policy is applied across every page unless explicitly marked as publicly accessible (login/register/forgot password). 
 - User passwords are **securely hashed**.
 - Password reset functionality is implemented using ASP.NET Core Identity secure token generation.
 - Password recovery links are delivered via email and contain a secure, time-limited, user-bound token, ensuring that only the intended recipient can reset the account password.
+- Two-Factor Authentication (2FA) via email is supported and can be enabled by users for enhanced account security. When enabled, users must provide a time-sensitive one-time verification code sent to their registered email address during login.
+- 2FA codes are generated using ASP.NET Core Identity token providers and are user-bound, secure, and time-limited.
 - API tokens and secrets are **encrypted before being stored** in the database.
 - Secrets are **never returned in plain text** to the UI after saving. Instead, a masked placeholder (e.g. `********`) is shown.
 - Database access is restricted to the application via Azure SQL configuration.
