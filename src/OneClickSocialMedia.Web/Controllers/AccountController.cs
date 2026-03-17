@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
+using OneClickSocialMedia.Data;
 using OneClickSocialMedia.Web.ViewModel;
 
 namespace OneClickSocialMedia.Web.Controllers
@@ -12,10 +13,12 @@ namespace OneClickSocialMedia.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IMediator mediator;
+        private readonly SignInManager<Users> signInManager;
 
-        public AccountController(IMediator mediator)
+        public AccountController(IMediator mediator, SignInManager<Users> signInManager)
         {
             this.mediator = mediator;
+            this.signInManager = signInManager;
         }
 
         [AllowAnonymous]
@@ -303,6 +306,45 @@ namespace OneClickSocialMedia.Web.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExternalLogin(string provider, string? returnUrl = null)
+        {
+            string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl })!;
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
+        {
+            ExternalLoginCallbackCommand command = new ExternalLoginCallbackCommand
+            {
+                ReturnUrl = returnUrl,
+                RemoteError = remoteError
+            };
+
+            ExternalLoginCallbackCommandResponse response = await mediator.Send(command);
+
+            if (response.IsSuccess)
+            {
+                return LocalRedirect(response.ReturnUrl ?? "~/");
+            }
+
+            if (response.ErrorMessages != null)
+            {
+                foreach (var error in response.ErrorMessages)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
+            }
+
+            return RedirectToAction(nameof(Login), new { returnUrl = response.ReturnUrl });
+
         }
 
     }

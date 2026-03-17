@@ -42,6 +42,22 @@
                 Don't have an account? <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a>
             </p>
         </form>
+        <div class="text-center my-3">
+            <span>or</span>
+        </div>
+
+        <form asp-action="ExternalLogin" asp-controller="Account" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="provider" value="Google" />
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+            <button type="submit" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center p-2">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                     alt="Google logo"
+                     style="width:20px;height:20px;margin-right:10px;">
+                Continue with Google
+            </button>
+        </form>
     </div>
 </div>
 
