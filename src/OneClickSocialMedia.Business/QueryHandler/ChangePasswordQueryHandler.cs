@@ -22,6 +22,9 @@ namespace OneClickSocialMedia.Business.QueryHandler
 
         public async Task<ChangePasswordResponse> Handle(ChangePasswordQuery request, CancellationToken cancellationToken)
         {
+
+
+
             var httpContext = httpContextAccessor.HttpContext;
 
             if (httpContext == null)
@@ -34,6 +37,16 @@ namespace OneClickSocialMedia.Business.QueryHandler
             }
 
             var user = await signInManager.UserManager.GetUserAsync(httpContext.User);
+
+
+            if (user == null || !await signInManager.UserManager.HasPasswordAsync(user))
+            {
+                return new ChangePasswordResponse
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "The user does not have a password to change."
+                };
+            }
 
             if (user == null)
             {

@@ -76,6 +76,13 @@ namespace OneClickSocialMedia
 
             builder.Services.AddDataProtection();
 
+            builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+            });
+
+
             builder.Services.AddSingleton<EncryptionService>();
             builder.Services.AddScoped<ITwitterPostService, TwitterPostService>();
             builder.Services.AddScoped<ICredentialsProvider, CredentialsProvider>();

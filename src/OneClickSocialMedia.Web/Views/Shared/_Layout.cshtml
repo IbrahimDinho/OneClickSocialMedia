@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Users> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,6 +14,16 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
+    @{
+        Users? user = null;
+        bool hasPassword = false;
+
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            user = await UserManager.GetUserAsync(User);
+            hasPassword = user != null && await UserManager.HasPasswordAsync(user);
+        }
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -26,9 +39,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Setting">Settings</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
-                        </li>
+                        @if (hasPassword)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
