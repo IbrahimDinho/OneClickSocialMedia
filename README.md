@@ -14,6 +14,7 @@ Currently supported / planned platforms:
 
 ## Live Site
 Site - [oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net](https://oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net)
+Note: This application is hosted on Azure using a free/basic tier. Due to cold start, the site may take a few minutes to load after inactivity.If you encounter an error on first visit, please wait a moment and refresh the page.
 
 ## Tech Stack
 
@@ -28,6 +29,7 @@ Site - [oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net](ht
 
 - Post content to multiple platforms from a single UI
 - Platform settings page for storing API credentials safely (per user)
+- Single Sign-On (SSO) using providers (Google, Facebook, X/Twitter)
 
 ---
 
@@ -49,4 +51,5 @@ A step-by-step guide will be added covering:
 - API tokens and secrets are **encrypted before being stored** in the database.
 - Secrets are **never returned in plain text** to the UI after saving. Instead, a masked placeholder (e.g. `********`) is shown.
 - Database access is restricted to the application via Azure SQL configuration.
+- Users can authenticate using either email & password or Single Sign-On (SSO) via Google, Facebook, or X (Twitter)
 
