@@ -84,6 +84,10 @@ namespace OneClickSocialMedia
             {
                 facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
+            }).AddTwitter(twitterOptions =>
+            {
+                twitterOptions.ConsumerKey = builder.Configuration["Authentication:Twitter:ConsumerKey"];
+                twitterOptions.ConsumerSecret = builder.Configuration["Authentication:Twitter:ConsumerSecret"];
             });
 
 

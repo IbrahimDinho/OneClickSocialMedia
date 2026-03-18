@@ -70,6 +70,18 @@
                 Continue with Facebook
             </button>
         </form>
+        <form asp-action="ExternalLogin" asp-controller="Account" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="provider" value="Twitter" />
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+            <button type="submit" class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center p-2 mt-2">
+                <img src="~/images/x-social-media.png"
+                     alt="X (Twitter) logo"
+                     style="width:20px;height:20px;margin-right:10px;object-fit:contain;display:block;">
+                Continue with X (Twitter)
+            </button>
+        </form>
     </div>
 </div>
 
