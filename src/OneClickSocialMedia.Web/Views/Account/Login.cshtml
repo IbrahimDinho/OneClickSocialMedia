@@ -58,6 +58,18 @@
                 Continue with Google
             </button>
         </form>
+        <form asp-action="ExternalLogin" asp-controller="Account" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="provider" value="Facebook" />
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+            <button type="submit" class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center p-2 mt-2">
+                <img src="~/images/facebook-square-icon.png"
+                      alt="Facebook logo"
+                      style="width:20px;height:20px;margin-right:10px;">
+                Continue with Facebook
+            </button>
+        </form>
     </div>
 </div>
 
