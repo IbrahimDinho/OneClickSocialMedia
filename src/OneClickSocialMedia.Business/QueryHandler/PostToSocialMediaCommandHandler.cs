@@ -17,15 +17,23 @@ namespace OneClickSocialMedia.Business.QueryHandler
             this.twitterPostService = twitterPostService;
             this.credentialsProvider = credentialsProvider;
         }
-        public async Task<PostToSocialMediaResponse> Handle(PostToSocialMediaCommand request, CancellationToken cancellationToken)
+        public async Task<PostToSocialMediaResponse> Handle(PostToSocialMediaCommand command, CancellationToken cancellationToken)
         {
             //split into 3 services each service posts. can do validation and all in the services and 1 credential provider to get
             // things from the database
-            TwitterCredentialsDto twitterCredentials = await credentialsProvider.GetTwitterCredsUserAsync(Guid.Parse(request.UserId));
 
-            // If no image just normal post otherwise post with image url or file
-            twitterPostService.PostAsync(request.Comment, twitterCredentials);
+            #region Twitter
+            TwitterCredentialsDto twitterCredentials = await credentialsProvider.GetTwitterCredsUserAsync(Guid.Parse(command.UserId));
 
+            if (command.HasImage() == false)
+            {
+                await twitterPostService.PostAsync(command.Comment, twitterCredentials);
+            }
+            else
+            {
+                twitterPostService.PostAsync(command.Comment, command.Image, command.URLforImage, twitterCredentials);
+            }
+            #endregion
 
             // Get the error messages and join them together if failed and so users knows why... 
             return new PostToSocialMediaResponse

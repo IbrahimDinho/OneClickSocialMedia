@@ -7,6 +7,7 @@
   </Folder>
   <Project Path="EmailService/EmailService.csproj" Id="6147b99f-bfff-46f3-b51f-a8c042b1fa73" />
   <Project Path="OneClickSocialMedia.Business/OneClickSocialMedia.Business.csproj" />
+  <Project Path="OneClickSocialMedia.Constants/OneClickSocialMedia.Constants.csproj" Id="62c6695b-8dc5-446c-a0c9-5a1dd5ddbed3" />
   <Project Path="OneClickSocialMedia.Contract/OneClickSocialMedia.Contract.csproj" Id="497ab65c-52db-4883-9e19-46af66a5ec4c" />
   <Project Path="OneClickSocialMedia.Data/OneClickSocialMedia.Data.csproj" />
   <Project Path="OneClickSocialMedia.Web/OneClickSocialMedia.Web.csproj" />

@@ -41,6 +41,15 @@ namespace OneClickSocialMedia.Business.Query
         /// The current user id.
         /// </summary>
         public string UserId { get; set; }
+
+        /// <summary>
+        /// If image has been passed in
+        /// </summary>
+        public bool HasImage()
+        {
+            return (Image != null && Image.Length > 0) ||
+                   !string.IsNullOrWhiteSpace(URLforImage);
+        }
     }
 }
 
