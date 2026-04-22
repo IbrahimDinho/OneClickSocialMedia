@@ -7,12 +7,6 @@ namespace OneClickSocialMedia.Business.Service
 {
     public class CredentialsProvider : ICredentialsProvider
     {
-        private string XapiKey;
-        private string XapiSecret;
-        private string Xaccesstoken;
-        private string Xtokendecret;
-        private const string Xendpoint = "https://api.twitter.com/2/tweets";
-        private const string Xmediaendpoint = "https://upload.twitter.com/1.1/media/upload.json";
 
         private readonly AppDbContext context;
 
