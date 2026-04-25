@@ -9,12 +9,6 @@ namespace OneClickSocialMedia.Business.Service
     public class TwitterPostService : ITwitterPostService
     {
 
-        private readonly IHttpClientFactory httpClientFactory;
-
-        public TwitterPostService(IHttpClientFactory httpClientFactory)
-        {
-            this.httpClientFactory = httpClientFactory;
-        }
 
         /// <inheritdoc/>
         public Task PostAsync(string commentToPost, TwitterCredentialsDto twitterCredentialsDto)
