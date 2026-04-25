@@ -31,7 +31,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
             }
             else
             {
-                twitterPostService.PostAsync(command.Comment, command.Image, command.URLforImage, twitterCredentials);
+                await twitterPostService.PostAsync(command.Comment, command.Image, command.URLforImage, twitterCredentials);
             }
             #endregion
 
