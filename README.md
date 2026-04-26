@@ -37,7 +37,7 @@ Note: This application is hosted on Azure using a free/basic tier. Due to cold s
 
 - Create developer apps on X/Facebook/Instagram and linking them to the accounts from where the posts will occur on
 - Generating API keys/tokens with the correct permissions Read/Write
-- If prompted you can use the oneclicksocialmedia website as the redirect url (X/Twitter may make you do this)
+- If prompted during setup you can use the oneclicksocialmedia website as the redirect url (X/Twitter may make you do this)
 - For Twitter when creating an app you will need to add credits/payment to be able to post as unfortunetly its now pay per use, read more here -> https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476
 
 ## Security Notes
