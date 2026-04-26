@@ -21,8 +21,31 @@ namespace OneClickSocialMedia.Business.QueryHandler
         {
             //split into 3 services each service posts. can do validation and all in the services and 1 credential provider to get
             // things from the database
+            List<Task> tasks = new List<Task>();
 
-            #region Twitter
+            if (command.IsTwitter)
+            {
+                tasks.Add(PostToTwitter(command));
+            }
+            if (command.IsInstagram)
+            {
+                //do work
+            }
+            if (command.IsFaceBook)
+            {
+                // do work
+            }
+
+            await Task.WhenAll(tasks);
+            // Get the error messages and join them together if failed and so users knows why... 
+            return new PostToSocialMediaResponse
+            {
+                IsSuccess = true,
+            };
+        }
+
+        private async Task PostToTwitter(PostToSocialMediaCommand command)
+        {
             TwitterCredentialsDto twitterCredentials = await credentialsProvider.GetTwitterCredsUserAsync(Guid.Parse(command.UserId));
 
             if (command.HasImage() == false)
@@ -33,13 +56,6 @@ namespace OneClickSocialMedia.Business.QueryHandler
             {
                 await twitterPostService.PostAsync(command.Comment, command.Image, command.URLforImage, twitterCredentials);
             }
-            #endregion
-
-            // Get the error messages and join them together if failed and so users knows why... 
-            return new PostToSocialMediaResponse
-            {
-                IsSuccess = true,
-            };
         }
     }
 }

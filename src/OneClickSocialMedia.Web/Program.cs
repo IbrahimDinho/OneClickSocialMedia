@@ -92,10 +92,9 @@ namespace OneClickSocialMedia
 
 
 
-            builder.Services.AddSingleton<EncryptionService>();
+            builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
             builder.Services.AddScoped<ITwitterPostService, TwitterPostService>();
             builder.Services.AddScoped<ICredentialsProvider, CredentialsProvider>();
-            builder.Services.AddHttpClient<ITwitterPostService, TwitterPostService>();
             var app = builder.Build();
 
             ApplyMigrations(app);

@@ -9,10 +9,10 @@ namespace OneClickSocialMedia.Business.QueryHandler
 {
     public class GetSettingsQueryHandler : IRequestHandler<GetSettingsQuery, GetSettingsResponse>
     {
-        private readonly EncryptionService encryptionService;
+        private readonly IEncryptionService encryptionService;
         private readonly AppDbContext context;
 
-        public GetSettingsQueryHandler(EncryptionService encryptionService, AppDbContext context)
+        public GetSettingsQueryHandler(IEncryptionService encryptionService, AppDbContext context)
         {
             this.encryptionService = encryptionService;
             this.context = context;

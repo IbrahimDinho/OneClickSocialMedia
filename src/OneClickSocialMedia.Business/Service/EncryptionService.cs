@@ -2,7 +2,7 @@
 
 namespace OneClickSocialMedia.Business.Service
 {
-    public class EncryptionService
+    public class EncryptionService : IEncryptionService
     {
         private readonly IDataProtectionProvider provider;
 

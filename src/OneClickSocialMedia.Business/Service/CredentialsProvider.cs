@@ -9,10 +9,13 @@ namespace OneClickSocialMedia.Business.Service
     {
 
         private readonly AppDbContext context;
+        private readonly IEncryptionService encryptionService;
 
-        public CredentialsProvider(AppDbContext context)
+
+        public CredentialsProvider(AppDbContext context, IEncryptionService encryptionService)
         {
             this.context = context;
+            this.encryptionService = encryptionService;
         }
 
 
@@ -24,9 +27,9 @@ namespace OneClickSocialMedia.Business.Service
                  .Select(x => new TwitterCredentialsDto
                  {
                      ApiKey = x.TwitterApiKey,
-                     ApiSecret = x.TwitterApiSecret,
+                     ApiSecret = encryptionService.Decrypt("Twitter", x.TwitterApiSecret),
                      AccessToken = x.TwitterAccessToken,
-                     AccessTokenSecret = x.TwitterAccessTokenSecret,
+                     AccessTokenSecret = encryptionService.Decrypt("Twitter", x.TwitterAccessTokenSecret),
                  })
                  .FirstOrDefaultAsync(ct);
         }
