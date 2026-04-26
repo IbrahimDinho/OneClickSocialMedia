@@ -16,6 +16,8 @@ Currently supported / planned platforms:
 Site - [oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net](https://oneclicksocialmedia-geh7baazekeuh7f3.westeurope-01.azurewebsites.net)
 Note: This application is hosted on Azure using a free/basic tier. Due to cold start, the site may take a few minutes to load after inactivity.If you encounter an error on first visit, please wait a moment and refresh the page.
 
+Email associated with site - noreply.oneclicksocialmedia@gmail.com
+
 ## Tech Stack
 
 - **Backend:** ASP.NET Core MVC (.NET)
