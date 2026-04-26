@@ -33,11 +33,11 @@ Note: This application is hosted on Azure using a free/basic tier. Due to cold s
 
 ---
 
-## Setup & Documentation (Coming Soon)
+## Setup & Documentation
 
-A step-by-step guide will be added covering:
-- Creating developer apps on X/Facebook/Instagram and linking them to the accounts from where the posts will occur on
-- Generating API keys/tokens
+- Create developer apps on X/Facebook/Instagram and linking them to the accounts from where the posts will occur on
+- Generating API keys/tokens with the correct permissions Read/Write
+- For Twitter when creating an app you will need to add credits/payment to be able to post unfortunetly its now pay per use
 
 ## Security Notes
 
