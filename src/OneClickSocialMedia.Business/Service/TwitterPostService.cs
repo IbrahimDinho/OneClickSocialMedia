@@ -20,7 +20,15 @@ namespace OneClickSocialMedia.Business.Service
         public async Task PostAsync(string commentToPost, Stream? fileImage, string? ImageUrl, TwitterCredentialsDto twitterCredentialsDto)
         {
             ValidateImageFields(fileImage, ImageUrl);
-            using var imageStream = await GetImageStreamAsync(ImageUrl);
+            Stream imageStream;
+            if (!string.IsNullOrEmpty(ImageUrl))
+            {
+                imageStream = await GetImageStreamAsync(ImageUrl);
+            }
+            else
+            {
+                imageStream = fileImage;
+            }
             string mediaId = await UploadFileToXAsync(twitterCredentialsDto.ApiKey, twitterCredentialsDto.ApiSecret, twitterCredentialsDto.AccessToken, twitterCredentialsDto.AccessTokenSecret, TwitterEndpoints.MediaUpload, imageStream);
 
             PostToXAsync(commentToPost, twitterCredentialsDto.ApiKey, twitterCredentialsDto.ApiSecret, twitterCredentialsDto.AccessToken, twitterCredentialsDto.AccessTokenSecret, TwitterEndpoints.Tweet, mediaId);
