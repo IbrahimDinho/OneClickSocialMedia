@@ -53,7 +53,6 @@ namespace OneClickSocialMedia.Business.Service
             };
 
             using HttpClient httpClient = new HttpClient(oauth, disposeHandler: true);
-
             HttpResponseMessage response = await httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
@@ -94,7 +93,7 @@ namespace OneClickSocialMedia.Business.Service
                 {
                     var responseContent = await uploadResponse.Content.ReadAsStringAsync();
 
-                    var deserializedResponse = JsonConvert.DeserializeObject<TwitterMediaUploadResponse>(responseContent);
+                    TwitterMediaUploadResponse deserializedResponse = JsonConvert.DeserializeObject<TwitterMediaUploadResponse>(responseContent);
                     return deserializedResponse?.MediaIdString
                         ?? throw new Exception("Failed to get media ID from Twitter response");
                 }
@@ -115,7 +114,7 @@ namespace OneClickSocialMedia.Business.Service
                 throw new ArgumentException("Provide either an image file or an image URL, not both.");
             }
 
-            if (hasUrl && IsUrl(imageUrl))
+            if (hasUrl && !IsUrl(imageUrl))
             {
                 throw new ArgumentException("Input is not a valid URL");
             }
