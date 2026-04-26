@@ -89,6 +89,11 @@ namespace OneClickSocialMedia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostToSocialMedia(SocialMediaViewModel viewModel)
         {
+            if (!viewModel.IsFaceBook && !viewModel.IsInstagram && !viewModel.IsTwitter)
+            {
+                TempData["Message"] = "Please select at least one social media platform.";
+                return RedirectToAction(nameof(Index));
+            }
 
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
