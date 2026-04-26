@@ -6,7 +6,7 @@
 OneClickSocialMedia is a responsive web application that lets you post to multiple social media platforms from one place, designed to work on both desktop and mobile devices.
 
 
-Currently supported / planned platforms:
+Currently supported platforms:
 - X (Twitter)
 - Facebook
 - Instagram
@@ -50,9 +50,8 @@ Email associated with site - noreply.oneclicksocialmedia@gmail.com
 - Password reset functionality is implemented using ASP.NET Core Identity secure token generation.
 - Password recovery links are delivered via email and contain a secure, time-limited, user-bound token, ensuring that only the intended recipient can reset the account password.
 - Two-Factor Authentication (2FA) via email is supported and can be enabled by users for enhanced account security. When enabled, users must provide a time-sensitive one-time verification code sent to their registered email address during login.
-- 2FA codes are generated using ASP.NET Core Identity token providers and are user-bound, secure, and time-limited.
 - API tokens and secrets are **encrypted before being stored** in the database.
-- Secrets are **never returned in plain text** to the UI after saving. Instead, a masked placeholder (e.g. `********`) is shown.
+- Secrets are **never returned in plain text** to the UI after saving. Instead, a masked placeholder (e.g. `********`) is shown, So if someone has a look at your screen you are all safe.
 - Database access is restricted to the application via Azure SQL configuration.
-- Users can authenticate using either email & password or Single Sign-On (SSO) via Google, Facebook, or X (Twitter)
+- Users can login using either email & password or Single Sign-On (SSO) via Google, Facebook, or X (Twitter)
 
