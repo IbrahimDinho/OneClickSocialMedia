@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputToken = document.getElementById("TwitterAccessTokenSecret");
     const toggleToken = document.getElementById("TwitterAccessTokenSecretToggle");
 
+    const inputInstaAPI = document.getElementById("InstagramAccessToken");
+    const toggleInstaAPI = document.getElementById("InstagramSecretToggle");
+
     // Hide toggle initially
     toggleToken.style.display = "none";
     toggleAPI.style.display = "none";
@@ -46,5 +49,30 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             toggleAPI.style.display = "none";   // hide button
         }
+    });
+});
+
+const originalValues = new Map();
+
+document.querySelectorAll(".credential-toggle").forEach(checkbox => {
+    const targetClass = checkbox.dataset.target;
+    const inputs = document.querySelectorAll(`.${targetClass}`);
+
+    inputs.forEach(input => {
+        originalValues.set(input, input.value);
+    });
+
+    checkbox.addEventListener("change", function () {
+        inputs.forEach(input => {
+            if (checkbox.checked) {
+                input.disabled = false;
+                input.value = "";
+                input.placeholder = "Enter new value";
+            } else {
+                input.disabled = true;
+                input.value = originalValues.get(input);
+                input.placeholder = "";
+            }
+        });
     });
 });

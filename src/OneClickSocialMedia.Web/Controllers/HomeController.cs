@@ -52,7 +52,10 @@ namespace OneClickSocialMedia.Controllers
                 TwitterAccessTokenSecret = response.TwitterAccessTokenSecret,
                 HasTwitterApiSecret = response.HasTwitterApiSecret,
                 HasTwitterAccessTokenSecret = response.HasTwitterAccessTokenSecret,
+                InstagramAccessToken = response.InstagramAccessToken,
+                HasInstagramAccessToken = response.HasInstagramAccessToken,
             };
+
 
             return View(viewModel);
 
@@ -68,6 +71,9 @@ namespace OneClickSocialMedia.Controllers
                 TwitterApiSecret = viewModel.TwitterApiSecret?.Trim(),
                 TwitterAccessToken = viewModel.TwitterAccessToken?.Trim(),
                 TwitterAccessTokenSecret = viewModel.TwitterAccessTokenSecret?.Trim(),
+                UpdateTwitterCredentials = viewModel.UpdateTwitterCredentials,
+                UpdateInstagramCredentials = viewModel.UpdateInstagramCredentials,
+                InstagramAccessToken = viewModel.InstagramAccessToken?.Trim(),
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
             };
             PostToSettingsResponse response = await mediator.Send(command);
@@ -89,11 +95,6 @@ namespace OneClickSocialMedia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostToSocialMedia(SocialMediaViewModel viewModel)
         {
-            if (!viewModel.IsFaceBook && !viewModel.IsInstagram && !viewModel.IsTwitter)
-            {
-                TempData["Message"] = "Please select at least one social media platform.";
-                return RedirectToAction(nameof(Index));
-            }
 
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -104,6 +105,7 @@ namespace OneClickSocialMedia.Controllers
                 IsTwitter = viewModel.IsTwitter,
                 Comment = viewModel.Comment,
                 Image = viewModel.Image?.OpenReadStream(),
+                ImageFile = viewModel.Image,
                 URLforImage = viewModel.URLforImage,
                 UserId = currentUserId,
             };

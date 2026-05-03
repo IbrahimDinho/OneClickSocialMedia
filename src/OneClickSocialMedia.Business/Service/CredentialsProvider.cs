@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OneClickSocialMedia.Constants;
 using OneClickSocialMedia.Contract;
 using OneClickSocialMedia.Contract.Dtos;
 using OneClickSocialMedia.Data;
@@ -27,9 +28,21 @@ namespace OneClickSocialMedia.Business.Service
                  .Select(x => new TwitterCredentialsDto
                  {
                      ApiKey = x.TwitterApiKey,
-                     ApiSecret = encryptionService.Decrypt("Twitter", x.TwitterApiSecret),
+                     ApiSecret = encryptionService.Decrypt(TwitterEndpoints.Provider, x.TwitterApiSecret),
                      AccessToken = x.TwitterAccessToken,
-                     AccessTokenSecret = encryptionService.Decrypt("Twitter", x.TwitterAccessTokenSecret),
+                     AccessTokenSecret = encryptionService.Decrypt(TwitterEndpoints.Provider, x.TwitterAccessTokenSecret),
+                 })
+                 .FirstOrDefaultAsync(ct);
+        }
+
+        /// <inheritdoc/>
+        public Task<InstagramCredentialsDto> GetInstagramCredsUserAsync(Guid userId, CancellationToken ct = default)
+        {
+            return context.InstagramOAuthTokens
+                 .Where(x => x.UserId == userId.ToString())
+                 .Select(x => new InstagramCredentialsDto
+                 {
+                     AccessToken = encryptionService.Decrypt(InstagramEndpoints.Provider, x.AccessToken),
                  })
                  .FirstOrDefaultAsync(ct);
         }

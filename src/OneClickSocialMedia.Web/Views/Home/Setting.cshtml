@@ -22,6 +22,16 @@
 <div class="card">
     <div class="card-header">
         <h5>Twitter / X</h5>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input credential-toggle"
+                               type="checkbox"
+                               asp-for="UpdateTwitterCredentials"
+                               id="updateTwitterCredentials"
+                               data-target="twitter-credential" />
+                        <label class="form-check-label" for="updateTwitterCredentials">
+                            Update Twitter / X credentials
+                        </label>
+                    </div>
     </div>
     <div class="card-body">
                 <div class="input-group mb-3">
@@ -30,7 +40,7 @@
                             API Key
                         </label>
                     </div>
-                    <input asp-for="TwitterApiKey" class="form-control" aria-describedby="twitterApiKeyLabel" />
+                        <input asp-for="TwitterApiKey" class="form-control twitter-credential" aria-describedby="twitterApiKeyLabel" disabled/>
                  </div>
 
                     <div class="input-group mb-3">
@@ -39,7 +49,7 @@
                             API Secret
                         </label>
                     </div>
-                        <input asp-for="TwitterApiSecret" class="form-control" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" placeholder="@(Model.HasTwitterApiSecret ? "********" : "")" />
+                        <input asp-for="TwitterApiSecret" class="form-control twitter-credential" aria-describedby="twitterApiSecretLabel" autocomplete="new-password" placeholder="@(Model.HasTwitterApiSecret ? "********" : "")" disabled />
                         <div class="input-group-append" id="TwitterAPISecretToggle">
                         <button type="button"
                                 class="btn btn-outline-secondary"
@@ -56,7 +66,7 @@
                             Access Token
                         </label>
                     </div>
-                    <input asp-for="TwitterAccessToken" class="form-control" aria-describedby="twitterAccessTokenLabel" />
+                        <input asp-for="TwitterAccessToken" class="form-control twitter-credential" aria-describedby="twitterAccessTokenLabel" disabled />
                 </div>
 
                     <div class="input-group mb-3">
@@ -65,7 +75,7 @@
                             Token Secret
                         </label>
                     </div>
-                        <input asp-for="TwitterAccessTokenSecret" class="form-control" aria-describedby="twitterAccessTokenSecretLabel" autocomplete="new-password" placeholder="@(Model.HasTwitterAccessTokenSecret ? "********" : "")" />
+                        <input asp-for="TwitterAccessTokenSecret" class="form-control twitter-credential" aria-describedby="twitterAccessTokenSecretLabel" autocomplete="new-password" placeholder="@(Model.HasTwitterAccessTokenSecret ? "********" : "")" disabled />
                         <div class="input-group-append" id="TwitterAccessTokenSecretToggle">
                         <button type="button"
                                 class="btn btn-outline-secondary"
@@ -123,14 +133,41 @@
     <div class="card">
         <div class="card-header">
             <h5>Instagram</h5>
+                    <div class="form-check mb-3">
+                    <input class="form-check-input credential-toggle"
+                               type="checkbox"
+                               asp-for="UpdateInstagramCredentials"
+                               id="updateInstagramCredentials" 
+                               data-target="instagram-credential" />
+                        <label class="form-check-label" for="updateInstagramCredentials">
+                            Update Instagram
+                        </label>
+                    </div>
         </div>
         <div class="card-body">
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Instagram API Token</span>
+                            <label class="input-group-text" for="InstagramAccessToken" id="InstagramAccessTokenLabel">
+                                Instagram Access Token
+                            </label>
                 </div>
-                <input type="text" class="form-control" aria-label="Instagram" aria-describedby="basic-addon1">
+                        <input asp-for="InstagramAccessToken" class="form-control instagram-credential" aria-describedby="InstagramAccessTokenLabel" autocomplete="new-password" placeholder="@(Model.HasInstagramAccessToken ? "********" : "")" disabled />
+                        <div class="input-group-append" id="InstagramSecretToggle">
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    onclick="togglePassword('InstagramAccessToken', this)">
+                                <span class="toggle-text">Show</span>
+                                <i class="fa fa-eye ml-1"></i>
+                            </button>
+                 </div>
             </div>
+                    @if (Model.HasInstagramAccessToken)
+                    {
+                        <small class="form-text text-muted">
+                            An instagram Access token is already saved, for security ******* is shown as a placeholder. Enter a new one to replace it.
+                        </small>
+                        <br />
+                    }
         </div>
     </div>
 

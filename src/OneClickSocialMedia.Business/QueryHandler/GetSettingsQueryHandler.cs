@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OneClickSocialMedia.Business.Query;
 using OneClickSocialMedia.Business.Query.Response;
 using OneClickSocialMedia.Business.Service;
+using OneClickSocialMedia.Constants;
 using OneClickSocialMedia.Data;
 
 namespace OneClickSocialMedia.Business.QueryHandler
@@ -26,7 +27,11 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);
 
-            if (twitterToken == null)
+            InstagramOAuthTokens instagramToken = await context.InstagramOAuthTokens
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);
+
+            if (twitterToken == null && instagramToken == null)
             {
                 return new GetSettingsResponse
                 {
@@ -34,25 +39,36 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 };
             }
 
-            string decryptedApiSecret = string.IsNullOrWhiteSpace(twitterToken.TwitterApiSecret)
-           ? string.Empty
-           : encryptionService.Decrypt("Twitter", twitterToken.TwitterApiSecret);
+            GetSettingsResponse response = new GetSettingsResponse();
 
-            string decryptedAccessTokenSecret = string.IsNullOrWhiteSpace(twitterToken.TwitterAccessTokenSecret)
-                ? string.Empty
-                : encryptionService.Decrypt("Twitter", twitterToken.TwitterAccessTokenSecret);
-
-
-            return new GetSettingsResponse
+            if (twitterToken != null)
             {
-                IsSuccess = true,
-                TwitterApiKey = MaskValue(twitterToken.TwitterApiKey),
-                TwitterAccessToken = MaskValue(twitterToken.TwitterAccessToken),
+                string decryptedApiSecret = string.IsNullOrWhiteSpace(twitterToken.TwitterApiSecret)
+               ? string.Empty
+               : encryptionService.Decrypt(TwitterEndpoints.Provider, twitterToken.TwitterApiSecret);
 
-                HasTwitterApiSecret = !string.IsNullOrWhiteSpace(decryptedApiSecret),
-                HasTwitterAccessTokenSecret = !string.IsNullOrWhiteSpace(decryptedAccessTokenSecret),
+                string decryptedAccessTokenSecret = string.IsNullOrWhiteSpace(twitterToken.TwitterAccessTokenSecret)
+                    ? string.Empty
+                    : encryptionService.Decrypt(TwitterEndpoints.Provider, twitterToken.TwitterAccessTokenSecret);
 
-            };
+                PopulateTwitterSettings(response, twitterToken, decryptedApiSecret, decryptedAccessTokenSecret);
+
+            }
+
+            if (instagramToken != null)
+            {
+                string decryptedAccessToken = string.IsNullOrWhiteSpace(instagramToken.AccessToken)
+               ? string.Empty
+               : encryptionService.Decrypt(InstagramEndpoints.Provider, instagramToken.AccessToken);
+
+                PopulateInstagramSettings(response, instagramToken, decryptedAccessToken);
+
+            }
+
+
+
+            return response;
+
 
         }
 
@@ -67,6 +83,34 @@ namespace OneClickSocialMedia.Business.QueryHandler
             var lastChars = value.Substring(value.Length - visibleChars);
             return new string('*', value.Length - visibleChars) + lastChars;
         }
+
+        private void PopulateTwitterSettings(
+        GetSettingsResponse response,
+        TwitterOAuthTokens twitterToken,
+        string decryptedApiSecret,
+        string decryptedAccessTokenSecret)
+        {
+            response.IsSuccess = true;
+
+            response.TwitterApiKey = MaskValue(twitterToken.TwitterApiKey);
+            response.TwitterAccessToken = MaskValue(twitterToken.TwitterAccessToken);
+
+            response.HasTwitterApiSecret = !string.IsNullOrWhiteSpace(decryptedApiSecret);
+            response.HasTwitterAccessTokenSecret = !string.IsNullOrWhiteSpace(decryptedAccessTokenSecret);
+        }
+
+        private void PopulateInstagramSettings(
+        GetSettingsResponse response,
+        InstagramOAuthTokens instagramToken,
+        string decryptedAccessToken)
+        {
+            response.IsSuccess = true;
+
+            response.InstagramAccessToken = MaskValue(instagramToken.AccessToken);
+
+            response.HasInstagramAccessToken = !string.IsNullOrWhiteSpace(decryptedAccessToken);
+        }
+
     }
 
 

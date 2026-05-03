@@ -8,6 +8,12 @@ namespace OneClickSocialMedia.Business.Service
 {
     public class TwitterPostService : ITwitterPostService
     {
+        private readonly HttpClient client;
+
+        public TwitterPostService(HttpClient client)
+        {
+            this.client = client;
+        }
 
 
         /// <inheritdoc/>
@@ -60,7 +66,7 @@ namespace OneClickSocialMedia.Business.Service
                 Content = new StringContent(jsonData, Encoding.UTF8, "application/json")
             };
 
-            using HttpClient httpClient = new HttpClient(oauth, disposeHandler: true);
+            using HttpClient httpClient = new HttpClient(oauth, disposeHandler: true); //requires ouath
             HttpResponseMessage response = await httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
@@ -128,12 +134,10 @@ namespace OneClickSocialMedia.Business.Service
             }
         }
 
-        private static async Task<Stream> GetImageStreamAsync(string input)
+        private async Task<Stream> GetImageStreamAsync(string input)
         {
 
-            var client = new HttpClient();
             return await client.GetStreamAsync(input);
-
         }
 
         private static bool IsUrl(string input)

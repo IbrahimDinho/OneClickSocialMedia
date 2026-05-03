@@ -10,17 +10,28 @@ namespace OneClickSocialMedia.Business.QueryHandler
     public class PostToSocialMediaCommandHandler : IRequestHandler<PostToSocialMediaCommand, PostToSocialMediaResponse>
     {
         private readonly ITwitterPostService twitterPostService;
+        private readonly IInstagramPostService instagramPostService;
         private readonly ICredentialsProvider credentialsProvider;
 
-        public PostToSocialMediaCommandHandler(ITwitterPostService twitterPostService, ICredentialsProvider credentialsProvider)
+        public PostToSocialMediaCommandHandler(ITwitterPostService twitterPostService, ICredentialsProvider credentialsProvider, IInstagramPostService instagramPostService)
         {
             this.twitterPostService = twitterPostService;
             this.credentialsProvider = credentialsProvider;
+            this.instagramPostService = instagramPostService;
         }
         public async Task<PostToSocialMediaResponse> Handle(PostToSocialMediaCommand command, CancellationToken cancellationToken)
         {
+            PostToSocialMediaResponse validationResult = ValidateCommand(command);
+
+            if (validationResult != null)
+            {
+                return validationResult;
+            }
+
             //split into 3 services each service posts. can do validation and all in the services and 1 credential provider to get
             // things from the database
+
+
             List<Task> tasks = new List<Task>();
 
             if (command.IsTwitter)
@@ -29,7 +40,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
             }
             if (command.IsInstagram)
             {
-                //do work
+                tasks.Add(PostToInstagram(command));
             }
             if (command.IsFaceBook)
             {
@@ -37,11 +48,49 @@ namespace OneClickSocialMedia.Business.QueryHandler
             }
 
             await Task.WhenAll(tasks);
-            // Get the error messages and join them together if failed and so users knows why... 
+
+            // TODO Get the error messages and join them together if failed and so users knows why... 
             return new PostToSocialMediaResponse
             {
                 IsSuccess = true,
             };
+        }
+
+        private PostToSocialMediaResponse? ValidateCommand(PostToSocialMediaCommand command)
+        {
+            // Will need to refactor it throw exceptions/ better error handling.
+            //TODO IE
+            if (!command.IsTwitter && !command.IsInstagram && !command.IsFaceBook)
+            {
+                return new PostToSocialMediaResponse
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Please select at least one social media platform."
+                };
+            }
+
+            bool hasImageFile = command.Image != null && command.Image.Length > 0;
+            bool hasImageUrl = !string.IsNullOrWhiteSpace(command.URLforImage);
+
+            if (command.IsInstagram && !hasImageFile && !hasImageUrl)
+            {
+                return new PostToSocialMediaResponse
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Instagram requires an image URL posted alongside it."
+                };
+            }
+
+            if (command.IsInstagram && (hasImageFile || !hasImageUrl))
+            {
+                return new PostToSocialMediaResponse
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Instagram requires an image URL posted alongside it."
+                };
+            }
+
+            return null; // valid
         }
 
         private async Task PostToTwitter(PostToSocialMediaCommand command)
@@ -56,6 +105,14 @@ namespace OneClickSocialMedia.Business.QueryHandler
             {
                 await twitterPostService.PostAsync(command.Comment, command.Image, command.URLforImage, twitterCredentials);
             }
+        }
+
+        private async Task PostToInstagram(PostToSocialMediaCommand command)
+        {
+            InstagramCredentialsDto instagramCredentials = await credentialsProvider.GetInstagramCredsUserAsync(Guid.Parse(command.UserId));
+
+
+            await instagramPostService.PostAsync(command.Comment, command.URLforImage, instagramCredentials);
         }
     }
 }

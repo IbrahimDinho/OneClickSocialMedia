@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using OneClickSocialMedia.Business.Query.Response;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,6 +26,11 @@ namespace OneClickSocialMedia.Business.Query
         /// The image file given by the user
         /// </summary>
         public Stream? Image { get; set; }
+
+        /// <summary>
+        /// The image file given by the user
+        /// </summary>
+        public IFormFile? ImageFile { get; set; }
 
         /// <summary>
         /// Url of image that the user wants to post

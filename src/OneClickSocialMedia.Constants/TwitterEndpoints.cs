@@ -11,5 +11,10 @@
         /// Endpoint used to upload media (images) to Twitter before attaching to a tweet.
         /// </summary>
         public const string MediaUpload = "https://upload.twitter.com/1.1/media/upload.json";
+
+        /// <summary>
+        /// Provider constant for twitter.
+        /// </summary>
+        public const string Provider = "Twitter";
     }
 }

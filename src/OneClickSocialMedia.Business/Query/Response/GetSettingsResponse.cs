@@ -2,6 +2,7 @@
 {
     public class GetSettingsResponse : Response
     {
+        #region Twitter
         public string TwitterApiKey { get; set; }
 
         public string TwitterApiSecret { get; set; }
@@ -13,6 +14,13 @@
         public bool HasTwitterAccessTokenSecret { get; set; }
 
         public bool HasTwitterApiSecret { get; set; }
+        #endregion Twitter
+
+        #region Instagram
+        public string InstagramAccessToken { get; set; }
+
+        public bool HasInstagramAccessToken { get; set; }
+        #endregion Instagram
     }
 }
 
