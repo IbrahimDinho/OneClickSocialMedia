@@ -72,16 +72,8 @@ namespace OneClickSocialMedia.Business.QueryHandler
             bool hasImageFile = command.Image != null && command.Image.Length > 0;
             bool hasImageUrl = !string.IsNullOrWhiteSpace(command.URLforImage);
 
-            if (command.IsInstagram && !hasImageFile && !hasImageUrl)
-            {
-                return new PostToSocialMediaResponse
-                {
-                    IsSuccess = false,
-                    ErrorMessage = "Instagram requires an image URL posted alongside it."
-                };
-            }
 
-            if (command.IsInstagram && (hasImageFile || !hasImageUrl))
+            if (command.IsInstagram && !hasImageUrl)
             {
                 return new PostToSocialMediaResponse
                 {
