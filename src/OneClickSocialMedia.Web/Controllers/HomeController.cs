@@ -54,6 +54,8 @@ namespace OneClickSocialMedia.Controllers
                 HasTwitterAccessTokenSecret = response.HasTwitterAccessTokenSecret,
                 InstagramAccessToken = response.InstagramAccessToken,
                 HasInstagramAccessToken = response.HasInstagramAccessToken,
+                HasFacebookAccessToken = response.HasFacebookAccessToken,
+                FacebookAccessToken = response.FacebookAccessToken
             };
 
 
@@ -67,13 +69,15 @@ namespace OneClickSocialMedia.Controllers
         {
             PostToSettingsCommand command = new PostToSettingsCommand()
             {
-                TwitterApiKey = viewModel.TwitterApiKey?.Trim(), //trim to remove accidental white space when paste in.
+                TwitterApiKey = viewModel.TwitterApiKey?.Trim(), //trim to remove accidental white space when paste in tokens.
                 TwitterApiSecret = viewModel.TwitterApiSecret?.Trim(),
                 TwitterAccessToken = viewModel.TwitterAccessToken?.Trim(),
                 TwitterAccessTokenSecret = viewModel.TwitterAccessTokenSecret?.Trim(),
                 UpdateTwitterCredentials = viewModel.UpdateTwitterCredentials,
                 UpdateInstagramCredentials = viewModel.UpdateInstagramCredentials,
                 InstagramAccessToken = viewModel.InstagramAccessToken?.Trim(),
+                FacebookAccessToken = viewModel.FacebookAccessToken?.Trim(),
+                UpdateFacebookCredentials = viewModel.UpdateFacebookCredentials,
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
             };
             PostToSettingsResponse response = await mediator.Send(command);

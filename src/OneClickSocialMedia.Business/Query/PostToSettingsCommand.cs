@@ -31,12 +31,20 @@ namespace OneClickSocialMedia.Business.Query
         public string TwitterAccessTokenSecret { get; set; }
 
         /// <summary>
-        /// Twitter Token Secret
+        /// Instagram Token Secret
         /// </summary>
         public string InstagramAccessToken { get; set; }
 
         public bool UpdateTwitterCredentials { get; set; }
 
         public bool UpdateInstagramCredentials { get; set; }
+
+        /// <summary>
+        /// Facebook Token Secret
+        /// </summary>
+        public string FacebookAccessToken { get; set; }
+        public bool HasFacebookAccessToken { get; set; }
+
+        public bool UpdateFacebookCredentials { get; set; }
     }
 }

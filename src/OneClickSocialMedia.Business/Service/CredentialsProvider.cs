@@ -46,5 +46,17 @@ namespace OneClickSocialMedia.Business.Service
                  })
                  .FirstOrDefaultAsync(ct);
         }
+
+        /// <inheritdoc/>
+        public Task<FacebookCredentialsDto> GetFacebookCredsUserAsync(Guid userId, CancellationToken ct = default)
+        {
+            return context.FacebookOAuthTokens
+                 .Where(x => x.UserId == userId.ToString())
+                 .Select(x => new FacebookCredentialsDto
+                 {
+                     AccessToken = encryptionService.Decrypt(FacebookEndpoints.Provider, x.UserAccessToken),
+                 })
+                 .FirstOrDefaultAsync(ct);
+        }
     }
 }

@@ -106,5 +106,13 @@ namespace OneClickSocialMedia.Business.QueryHandler
 
             await instagramPostService.PostAsync(command.Comment, command.URLforImage, instagramCredentials);
         }
+
+        private async Task PostToFacebook(PostToSocialMediaCommand command)
+        {
+            FacebookCredentialsDto facebookCredentials = await credentialsProvider.GetFacebookCredsUserAsync(Guid.Parse(command.UserId));
+
+            //TODO facebook service add and do validation too
+            //get pageid and page acess token in postasync!! for fb service
+        }
     }
 }

@@ -14,12 +14,21 @@ namespace OneClickSocialMedia.Contract
 
 
         /// <summary>
-        /// Get twitter creds including which includes all 4 of API key and secret and Token and token secret.
+        /// Get instagram creds including which includes access token
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         public Task<InstagramCredentialsDto> GetInstagramCredsUserAsync(Guid userId, CancellationToken ct = default);
+
+
+        /// <summary>
+        /// Get facebook creds which includes user access token
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public Task<FacebookCredentialsDto> GetFacebookCredsUserAsync(Guid userId, CancellationToken ct = default);
 
     }
 }

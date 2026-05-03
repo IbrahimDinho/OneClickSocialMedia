@@ -38,7 +38,7 @@ Email associated with site - noreply.oneclicksocialmedia@gmail.com
 ## Setup & Documentation
 
 - Create developer apps on X/Facebook/Instagram and linking them to the accounts from where the posts will occur on
-- Generating API keys/tokens with the correct permissions (Read/Write) and add those keys to the settings page, this will from the developer apps 
+- Generating API keys/tokens with the correct permissions (Read/Write,pages_manage_posts etc ) and add those keys to the settings page, this will from the developer apps 
 - If prompted during setup you can use the oneclicksocialmedia website as the redirect url (X/Twitter may make you do this)
 - For X/Twitter when creating an app you will need to add credits/payment to be able to post as unfortunetly its now pay per use, read more here -> https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476
 - For instagram you will need to have a business/professional account to be able to post images

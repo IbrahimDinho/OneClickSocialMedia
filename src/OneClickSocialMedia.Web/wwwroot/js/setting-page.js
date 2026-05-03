@@ -31,25 +31,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputInstaAPI = document.getElementById("InstagramAccessToken");
     const toggleInstaAPI = document.getElementById("InstagramSecretToggle");
 
-    // Hide toggle initially
-    toggleToken.style.display = "none";
-    toggleAPI.style.display = "none";
+    const inputfbAPI = document.getElementById("FacebookAccessToken");
+    const togglefbAPI = document.getElementById("FacebookSecretToggle");
 
-    inputToken.addEventListener("input", function () {
-        if (inputToken.value.trim().length > 0) {
-            toggleToken.style.display = "flex";   // show button
-        } else {
-            toggleToken.style.display = "none";   // hide button
-        }
-    });
+    // Helper to setup toggle behaviour
+    function setupToggle(input, toggle) {
+        if (!input || !toggle) return;
 
-    inputAPI.addEventListener("input", function () {
-        if (inputAPI.value.trim().length > 0) {
-            toggleAPI.style.display = "flex";   // show button
-        } else {
-            toggleAPI.style.display = "none";   // hide button
-        }
-    });
+        // Initial state
+        toggle.style.display = input.value.trim().length > 0 ? "flex" : "none";
+
+        input.addEventListener("input", function () {
+            toggle.style.display = input.value.trim().length > 0 ? "flex" : "none";
+        });
+    }
+
+    // Apply to all
+    setupToggle(inputToken, toggleToken);
+    setupToggle(inputAPI, toggleAPI);
+    setupToggle(inputInstaAPI, toggleInstaAPI);
+    setupToggle(inputfbAPI, togglefbAPI);
 });
 
 const originalValues = new Map();

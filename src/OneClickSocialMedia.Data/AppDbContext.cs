@@ -12,5 +12,7 @@ namespace OneClickSocialMedia.Data
         public DbSet<TwitterOAuthTokens> TwitterOAuthTokens { get; set; }
 
         public DbSet<InstagramOAuthTokens> InstagramOAuthTokens { get; set; }
+
+        public DbSet<FacebookOAuthTokens> FacebookOAuthTokens { get; set; }
     }
 }

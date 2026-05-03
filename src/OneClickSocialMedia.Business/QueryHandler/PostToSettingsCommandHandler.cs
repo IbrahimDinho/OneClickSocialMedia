@@ -30,6 +30,10 @@ namespace OneClickSocialMedia.Business.QueryHandler
             {
                 await SaveOrUpdateInstagramTokensAsync(request, cancellationToken);
             }
+            if (request.UpdateFacebookCredentials)
+            {
+                await SaveOrUpdateFacebookTokensAsync(request, cancellationToken);
+            }
 
             PostToSettingsResponse response = new PostToSettingsResponse
             {
@@ -129,6 +133,44 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 // Update existing record
                 if (!string.IsNullOrWhiteSpace(encryptedAccessToken))
                     existing.AccessToken = encryptedAccessToken;
+            }
+
+            await context.SaveChangesAsync(cancellationToken);
+        }
+
+        private async Task SaveOrUpdateFacebookTokensAsync(
+        PostToSettingsCommand request,
+        CancellationToken cancellationToken)
+        {
+            var existing = await context.FacebookOAuthTokens
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);
+
+            string? encryptedAccessToken = null;
+
+            if (!string.IsNullOrWhiteSpace(request.FacebookAccessToken))
+            {
+                encryptedAccessToken = encryptionService.Encrypt(
+                    FacebookEndpoints.Provider,
+                    request.FacebookAccessToken);
+            }
+
+            if (existing == null)
+            {
+                // Create new record
+                FacebookOAuthTokens facebookToken = new FacebookOAuthTokens
+                {
+                    UserAccessToken = encryptedAccessToken,
+                    CreatedAt = DateTime.UtcNow,
+                    UserId = request.UserId,
+                };
+
+                context.FacebookOAuthTokens.Add(facebookToken);
+            }
+            else
+            {
+                // Update existing record
+                if (!string.IsNullOrWhiteSpace(encryptedAccessToken))
+                    existing.UserAccessToken = encryptedAccessToken;
             }
 
             await context.SaveChangesAsync(cancellationToken);

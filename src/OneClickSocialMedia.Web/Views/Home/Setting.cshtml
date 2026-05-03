@@ -109,23 +109,44 @@
     <div class="card">
         <div class="card-header">
             <h5>Facebook</h5>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input credential-toggle"
+                               type="checkbox"
+                               asp-for="UpdateFacebookCredentials"
+                               id="updateFacebookCredentials"
+                               data-target="facebook-credential" />
+                        <label class="form-check-label" for="updateFacebookCredentials">
+                            Update Facebook
+                        </label>
+                    </div>
         </div>
         <div class="card-body">
             <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Facebook API Token</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Facebook" aria-describedby="basic-addon1">
-            </div>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Facebook API Token2</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Facebook" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="FacebookAccessToken" id="FacebookAccessTokenLabel">
+                                Facebook User Access Token
+                            </label>
+                        </div>
+                        <input asp-for="FacebookAccessToken" class="form-control facebook-credential" aria-describedby="FacebookAccessTokenLabel" autocomplete="new-password" placeholder="@(Model.HasFacebookAccessToken ? "********" : "")" disabled />
+                        <div class="input-group-append" id="FacebookSecretToggle">
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    onclick="togglePassword('FacebookAccessToken', this)">
+                                <span class="toggle-text">Show</span>
+                                <i class="fa fa-eye ml-1"></i>
+                            </button>
             </div>
         </div>
+                    @if (Model.HasFacebookAccessToken)
+                    {
+                        <small class="form-text text-muted">
+                            A Facebook User Access token is already saved, for security ******* is shown as a placeholder. Enter a new one to replace it.
+                        </small>
+                        <br />
+                    }
     </div>
 
+    </div>
 </div>
 
 <div class="container-fluid mb-5">

@@ -31,7 +31,11 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);
 
-            if (twitterToken == null && instagramToken == null)
+            FacebookOAuthTokens facebookToken = await context.FacebookOAuthTokens
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);
+
+            if (twitterToken == null && instagramToken == null && facebookToken == null)
             {
                 return new GetSettingsResponse
                 {
@@ -65,6 +69,15 @@ namespace OneClickSocialMedia.Business.QueryHandler
 
             }
 
+            if (facebookToken != null)
+            {
+                string decryptedAccessToken = string.IsNullOrWhiteSpace(facebookToken.UserAccessToken)
+               ? string.Empty
+               : encryptionService.Decrypt(FacebookEndpoints.Provider, facebookToken.UserAccessToken);
+
+                PopulateFacebookSettings(response, facebookToken, decryptedAccessToken);
+
+            }
 
 
             return response;
@@ -109,6 +122,18 @@ namespace OneClickSocialMedia.Business.QueryHandler
             response.InstagramAccessToken = MaskValue(instagramToken.AccessToken);
 
             response.HasInstagramAccessToken = !string.IsNullOrWhiteSpace(decryptedAccessToken);
+        }
+
+        private void PopulateFacebookSettings(
+        GetSettingsResponse response,
+        FacebookOAuthTokens facebookToken,
+        string decryptedAccessToken)
+        {
+            response.IsSuccess = true;
+
+            response.FacebookAccessToken = MaskValue(facebookToken.UserAccessToken);
+
+            response.HasFacebookAccessToken = !string.IsNullOrWhiteSpace(decryptedAccessToken);
         }
 
     }

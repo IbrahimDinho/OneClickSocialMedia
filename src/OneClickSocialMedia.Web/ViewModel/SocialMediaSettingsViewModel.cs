@@ -34,6 +34,9 @@ namespace OneClickSocialMedia.Web.ViewModel
         public bool HasTwitterApiSecret { get; set; }
         public bool HasTwitterAccessTokenSecret { get; set; }
 
+        public bool UpdateTwitterCredentials { get; set; }
+
+
         /// <summary>
         /// Instagram Access Token
         /// </summary>
@@ -43,10 +46,18 @@ namespace OneClickSocialMedia.Web.ViewModel
 
         public bool HasInstagramAccessToken { get; set; }
 
-        public bool UpdateTwitterCredentials { get; set; }
 
         public bool UpdateInstagramCredentials { get; set; }
 
+        /// <summary>
+        /// Facebook Access Token
+        /// </summary>
+        [Display(Name = "Access Token")]
+        [DataType(DataType.Password)]
+        public string FacebookAccessToken { get; set; }
+        public bool HasFacebookAccessToken { get; set; }
+
+        public bool UpdateFacebookCredentials { get; set; }
 
     }
 }

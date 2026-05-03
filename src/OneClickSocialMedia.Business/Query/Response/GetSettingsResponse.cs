@@ -21,6 +21,12 @@
 
         public bool HasInstagramAccessToken { get; set; }
         #endregion Instagram
+
+        #region Facebook
+        public string FacebookAccessToken { get; set; }
+
+        public bool HasFacebookAccessToken { get; set; }
+        #endregion Facebook
     }
 }
 
