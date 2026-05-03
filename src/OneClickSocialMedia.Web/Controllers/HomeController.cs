@@ -85,7 +85,7 @@ namespace OneClickSocialMedia.Controllers
             if (response.IsSuccess)
             {
                 TempData["Success"] = true;
-                TempData["Message"] = "Posted successfully!";
+                TempData["Message"] = "Saved successfully!";
             }
             else
             {
