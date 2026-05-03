@@ -3,7 +3,7 @@
 [![Deploy](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml/badge.svg)](https://github.com/IbrahimDinho/OneClickSocialMedia/actions/workflows/socialmedia-deploy.yml)
 ![.NET](https://img.shields.io/badge/.NET-10.0-purple)
 
-OneClickSocialMedia is a responsive web application that lets you post to multiple social media platforms from one place, designed to work on both desktop and mobile devices.
+OneClickSocialMedia is a responsive web application that lets you post to multiple social media platforms from one place.
 
 
 Currently supported platforms:
@@ -38,9 +38,10 @@ Email associated with site - noreply.oneclicksocialmedia@gmail.com
 ## Setup & Documentation
 
 - Create developer apps on X/Facebook/Instagram and linking them to the accounts from where the posts will occur on
-- Generating API keys/tokens with the correct permissions Read/Write
+- Generating API keys/tokens with the correct permissions (Read/Write) and add those keys to the settings page, this will from the developer apps 
 - If prompted during setup you can use the oneclicksocialmedia website as the redirect url (X/Twitter may make you do this)
-- For Twitter when creating an app you will need to add credits/payment to be able to post as unfortunetly its now pay per use, read more here -> https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476
+- For X/Twitter when creating an app you will need to add credits/payment to be able to post as unfortunetly its now pay per use, read more here -> https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476
+- For instagram you will need to have a business/professional account to be able to post images
 
 ## Security Notes
 
