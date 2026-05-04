@@ -119,8 +119,6 @@ namespace OneClickSocialMedia.Business.QueryHandler
         {
             response.IsSuccess = true;
 
-            response.InstagramAccessToken = MaskValue(instagramToken.AccessToken);
-
             response.HasInstagramAccessToken = !string.IsNullOrWhiteSpace(decryptedAccessToken);
         }
 
@@ -131,7 +129,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
         {
             response.IsSuccess = true;
 
-            response.FacebookAccessToken = MaskValue(facebookToken.UserAccessToken);
+            response.FacebookPageId = MaskValue(facebookToken.PageId);
 
             response.HasFacebookAccessToken = !string.IsNullOrWhiteSpace(decryptedAccessToken);
         }

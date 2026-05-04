@@ -124,7 +124,7 @@
             <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="FacebookAccessToken" id="FacebookAccessTokenLabel">
-                                Facebook User Access Token
+                                Facebook Page Access Token
                             </label>
                         </div>
                         <input asp-for="FacebookAccessToken" class="form-control facebook-credential" aria-describedby="FacebookAccessTokenLabel" autocomplete="new-password" placeholder="@(Model.HasFacebookAccessToken ? "********" : "")" disabled />
@@ -136,11 +136,21 @@
                                 <i class="fa fa-eye ml-1"></i>
                             </button>
             </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="FacebookPageId" id="facebookPageIdLabel">
+                                    Facebook Page ID
+                                </label>
+                            </div>
+                            <input asp-for="FacebookPageId" class="form-control facebook-credential" aria-describedby="facebookPageIdLabel" disabled />
+                        </div>
+
         </div>
                     @if (Model.HasFacebookAccessToken)
                     {
                         <small class="form-text text-muted">
-                            A Facebook User Access token is already saved, for security ******* is shown as a placeholder. Enter a new one to replace it.
+                            A Facebook Page Access token is already saved, for security ******* is shown as a placeholder. Enter a new one to replace it.
                         </small>
                         <br />
                     }

@@ -55,6 +55,13 @@ namespace OneClickSocialMedia.Web.ViewModel
         [Display(Name = "Access Token")]
         [DataType(DataType.Password)]
         public string FacebookAccessToken { get; set; }
+
+        /// <summary>
+        /// Twitter Access Token
+        /// </summary>
+        [Display(Name = "Page ID")]
+        public string FacebookPageId { get; set; }
+
         public bool HasFacebookAccessToken { get; set; }
 
         public bool UpdateFacebookCredentials { get; set; }

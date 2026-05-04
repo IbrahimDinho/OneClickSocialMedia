@@ -42,6 +42,8 @@ Email associated with site - noreply.oneclicksocialmedia@gmail.com
 - If prompted during setup you can use the oneclicksocialmedia website as the redirect url (X/Twitter may make you do this)
 - For X/Twitter when creating an app you will need to add credits/payment to be able to post as unfortunetly its now pay per use, read more here -> https://devcommunity.x.com/t/announcing-the-launch-of-x-api-pay-per-use-pricing/256476
 - For instagram you will need to have a business/professional account to be able to post images
+- For facebook to generate a long lived page access token, go to this url https://developers.facebook.com/tools/debug/accesstoken/ and input your short lived token then click extended access token. This token now lasts for 3 months. You can read more about this here https://developers.facebook.com/docs/graph-api/reference/page-post 
+- For facebook you can get the page Id in the "About" section for managing the page or through the graph API explorer
 
 ## Security Notes
 

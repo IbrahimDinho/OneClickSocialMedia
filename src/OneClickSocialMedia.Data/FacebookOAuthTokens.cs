@@ -18,6 +18,12 @@ namespace OneClickSocialMedia.Data
         [Required]
         public string UserAccessToken { get; set; }
 
+        /// <summary>
+        ///  Access Token
+        /// </summary>
+        [Required]
+        public string PageId { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
     }

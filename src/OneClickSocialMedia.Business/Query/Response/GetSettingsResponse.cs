@@ -24,6 +24,7 @@
 
         #region Facebook
         public string FacebookAccessToken { get; set; }
+        public string FacebookPageId { get; set; }
 
         public bool HasFacebookAccessToken { get; set; }
         #endregion Facebook

@@ -55,6 +55,7 @@ namespace OneClickSocialMedia.Controllers
                 InstagramAccessToken = response.InstagramAccessToken,
                 HasInstagramAccessToken = response.HasInstagramAccessToken,
                 HasFacebookAccessToken = response.HasFacebookAccessToken,
+                FacebookPageId = response.FacebookPageId,
                 FacebookAccessToken = response.FacebookAccessToken
             };
 
@@ -77,6 +78,7 @@ namespace OneClickSocialMedia.Controllers
                 UpdateInstagramCredentials = viewModel.UpdateInstagramCredentials,
                 InstagramAccessToken = viewModel.InstagramAccessToken?.Trim(),
                 FacebookAccessToken = viewModel.FacebookAccessToken?.Trim(),
+                FacebookPageId = viewModel.FacebookPageId?.Trim(),
                 UpdateFacebookCredentials = viewModel.UpdateFacebookCredentials,
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
             };

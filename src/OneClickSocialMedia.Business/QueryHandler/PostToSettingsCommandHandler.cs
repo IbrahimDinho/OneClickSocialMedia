@@ -160,6 +160,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 FacebookOAuthTokens facebookToken = new FacebookOAuthTokens
                 {
                     UserAccessToken = encryptedAccessToken,
+                    PageId = request.FacebookPageId,
                     CreatedAt = DateTime.UtcNow,
                     UserId = request.UserId,
                 };
@@ -169,6 +170,8 @@ namespace OneClickSocialMedia.Business.QueryHandler
             else
             {
                 // Update existing record
+                existing.PageId = request.FacebookPageId;
+
                 if (!string.IsNullOrWhiteSpace(encryptedAccessToken))
                     existing.UserAccessToken = encryptedAccessToken;
             }

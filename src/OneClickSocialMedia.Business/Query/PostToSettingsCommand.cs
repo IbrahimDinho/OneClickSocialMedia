@@ -43,6 +43,10 @@ namespace OneClickSocialMedia.Business.Query
         /// Facebook Token Secret
         /// </summary>
         public string FacebookAccessToken { get; set; }
+        /// <summary>
+        /// Facebook Page Id
+        /// </summary>
+        public string FacebookPageId { get; set; }
         public bool HasFacebookAccessToken { get; set; }
 
         public bool UpdateFacebookCredentials { get; set; }
