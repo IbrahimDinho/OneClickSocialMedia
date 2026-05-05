@@ -39,6 +39,7 @@ namespace OneClickSocialMedia
 
             builder.Services.AddHttpClient<IInstagramPostService, InstagramPostService>();
             builder.Services.AddHttpClient<ITwitterPostService, TwitterPostService>();
+            builder.Services.AddHttpClient<IFacebookPostService, FacebookPostService>();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -98,6 +99,7 @@ namespace OneClickSocialMedia
             builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
             builder.Services.AddScoped<ITwitterPostService, TwitterPostService>();
             builder.Services.AddScoped<IInstagramPostService, InstagramPostService>();
+            builder.Services.AddScoped<IFacebookPostService, FacebookPostService>();
             builder.Services.AddScoped<ICredentialsProvider, CredentialsProvider>();
             var app = builder.Build();
 

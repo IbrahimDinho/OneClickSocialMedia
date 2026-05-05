@@ -4,5 +4,7 @@
     {
         public required string AccessToken { get; init; }
 
+        public required string PageId { get; init; }
+
     }
 }

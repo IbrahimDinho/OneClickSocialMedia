@@ -11,13 +11,15 @@ namespace OneClickSocialMedia.Business.QueryHandler
     {
         private readonly ITwitterPostService twitterPostService;
         private readonly IInstagramPostService instagramPostService;
+        private readonly IFacebookPostService facebookPostService;
         private readonly ICredentialsProvider credentialsProvider;
 
-        public PostToSocialMediaCommandHandler(ITwitterPostService twitterPostService, ICredentialsProvider credentialsProvider, IInstagramPostService instagramPostService)
+        public PostToSocialMediaCommandHandler(ITwitterPostService twitterPostService, ICredentialsProvider credentialsProvider, IInstagramPostService instagramPostService, IFacebookPostService facebookPostService)
         {
             this.twitterPostService = twitterPostService;
             this.credentialsProvider = credentialsProvider;
             this.instagramPostService = instagramPostService;
+            this.facebookPostService = facebookPostService;
         }
         public async Task<PostToSocialMediaResponse> Handle(PostToSocialMediaCommand command, CancellationToken cancellationToken)
         {
@@ -28,8 +30,6 @@ namespace OneClickSocialMedia.Business.QueryHandler
                 return validationResult;
             }
 
-            //split into 3 services each service posts. can do validation and all in the services and 1 credential provider to get
-            // things from the database
 
 
             List<Task> tasks = new List<Task>();
@@ -44,7 +44,7 @@ namespace OneClickSocialMedia.Business.QueryHandler
             }
             if (command.IsFaceBook)
             {
-                // do work
+                tasks.Add(PostToFacebook(command));
             }
 
             await Task.WhenAll(tasks);
@@ -111,8 +111,17 @@ namespace OneClickSocialMedia.Business.QueryHandler
         {
             FacebookCredentialsDto facebookCredentials = await credentialsProvider.GetFacebookCredsUserAsync(Guid.Parse(command.UserId));
 
-            //TODO facebook service add and do validation too
-            //get pageid and page acess token in postasync!! for fb service
+
+            if (command.HasImage() == false)
+            {
+                await facebookPostService.PostAsync(command.Comment, facebookCredentials);
+            }
+            else
+            {
+                await facebookPostService.PostAsync(command.Comment, command.URLforImage, facebookCredentials);
+            }
+
+
         }
     }
 }

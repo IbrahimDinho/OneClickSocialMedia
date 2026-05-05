@@ -55,6 +55,7 @@ namespace OneClickSocialMedia.Business.Service
                  .Select(x => new FacebookCredentialsDto
                  {
                      AccessToken = encryptionService.Decrypt(FacebookEndpoints.Provider, x.UserAccessToken),
+                     PageId = x.PageId,
                  })
                  .FirstOrDefaultAsync(ct);
         }
