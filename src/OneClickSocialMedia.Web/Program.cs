@@ -1,4 +1,5 @@
 using EmailService;
+using LoggingService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -9,6 +10,7 @@ using OneClickSocialMedia.Business.Service;
 using OneClickSocialMedia.Contract;
 using OneClickSocialMedia.Contract.Services;
 using OneClickSocialMedia.Data;
+using Serilog;
 
 namespace OneClickSocialMedia
 {
@@ -27,11 +29,18 @@ namespace OneClickSocialMedia
 
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
+            builder.Host.UseSerilog((hostContext, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(hostContext.Configuration);
+            });
+
             builder.Services.AddMediatRContracts();
 
             EmailConfiguration emailConfig = builder.Configuration
             .GetSection("EmailConfiguration")
             .Get<EmailConfiguration>();
+
+            builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 
             builder.Services.AddSingleton(emailConfig);
             builder.Services.AddScoped<IEmailSender, EmailSender>();
@@ -40,6 +49,7 @@ namespace OneClickSocialMedia
             builder.Services.AddHttpClient<IInstagramPostService, InstagramPostService>();
             builder.Services.AddHttpClient<ITwitterPostService, TwitterPostService>();
             builder.Services.AddHttpClient<IFacebookPostService, FacebookPostService>();
+
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
